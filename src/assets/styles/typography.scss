@@ -1,0 +1,210 @@
+@layer utilities {
+  $font-basis-grotesque: var(--font-basis-grotesque), sans-serif;
+  $font-optima: var(--font-optima), serif;
+
+  // Headings
+
+  .h1,
+  h1 {
+    font-family: $font-optima;
+    font-size: 56px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 64px; /* 114.286% */
+  }
+
+  .h1-mobile {
+    @extend .h1;
+    font-size: 48px;
+    line-height: 56px; /* 116.667% */
+  }
+
+  .h2,
+  h2 {
+    font-family: $font-optima;
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 48px; /* 114.286% */
+  }
+
+  .h2-mobile {
+    @extend .h2;
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  .h3,
+  h3 {
+    font-family: $font-optima;
+    font-size: 34px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 38px; /* 111.765% */
+  }
+
+  .h3-mobile {
+    @extend .h3;
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+  .h3-mobile-quote {
+    @extend .h3;
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .h4,
+  h4,
+  .h5,
+  h5,
+  .h6,
+  h6 {
+    @extend .h3;
+  }
+
+  .h4-mobile,
+  .h5-mobile,
+  .h6-mobile {
+    @extend .h4;
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  // Body
+
+  .body-xl {
+    font-family: $font-basis-grotesque;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 36px; /* 128.571% */
+
+    &-bold,
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  .body-l {
+    font-family: $font-basis-grotesque;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px; /* 127.273% */
+
+    &-bold,
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  .body-m {
+    font-family: $font-basis-grotesque;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+
+    &-bold,
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  .body-s {
+    font-family: $font-basis-grotesque;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 142.857% */
+
+    &-bold,
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  .body-xs {
+    font-family: $font-basis-grotesque;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 18px; /* 150% */
+
+    &-bold,
+    strong {
+      font-weight: 700;
+    }
+  }
+
+  // Buttons
+
+  .button-m {
+    font-family: $font-basis-grotesque;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+    text-transform: uppercase;
+  }
+
+  .button-s {
+    font-family: $font-basis-grotesque;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 142.857% */
+    text-transform: uppercase;
+  }
+
+  // Rich text
+
+  .detailsList {
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      li {
+        padding-left: 17px;
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          height: 7px;
+          width: 7px;
+          left: 0;
+          top: 7px;
+          transform: rotate(45deg);
+          background-color: #fff;
+        }
+      }
+    }
+
+    &.detailsList-blue {
+      ul li::before {
+        background-color: #001489;
+      }
+    }
+  }
+
+  // Extra
+
+  .result-number {
+    font-family: $font-basis-grotesque;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 36px; /* 128.571% */
+
+    span {
+      font-size: 42px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 48px; /* 114.286% */
+    }
+  }
+}

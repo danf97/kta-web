@@ -1,0 +1,7 @@
+export * from './getSanityCollection'
+export * from './getSanityHomePage'
+export * from './getSanityPage'
+export * from './getSanityPolicy'
+export * from './getSanityProduct'
+export * from './getSanitySettings'
+export * from './getSanityStrings'

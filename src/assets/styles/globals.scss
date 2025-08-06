@@ -1,0 +1,65 @@
+@use 'sass:meta';
+@import "tailwindcss";
+
+@include meta.load-css('typography.scss');
+// @import './plyr.scss';
+
+* {
+  -webkit-font-smoothing: antialiased;
+}
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@layer base {
+  body {
+  }
+  .rtl {
+    direction: rtl;
+  }
+
+  body {
+    min-height: 100vh;
+
+    .swiper-pagination {
+      margin-bottom: 32px;
+      bottom: 0 !important;
+    }
+
+    .swiper-pagination-bullet {
+      background: transparent;
+      border: 1px solid #5b726c;
+
+      &.swiper-pagination-bullet-active {
+        background: #5b726c;
+      }
+    }
+  }
+
+  // Header height
+  .headerMenuMobileHeight {
+    height: auto;
+
+    @media (max-width: 1024px) {
+      top: 107px !important;
+      height: calc(100vh - 106px);
+      height: calc((var(--vh, 1vh) * 100) - 106px);
+    }
+    @media (max-width: 767px) {
+      top: 102px !important;
+      height: calc(100vh - 101px);
+      height: calc((var(--vh, 1vh) * 100) - 101px);
+    }
+  }
+}
