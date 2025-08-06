@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-sand: #fff5e2;
+  --color-sand-light: #fff9ed;
+  --color-sand-dark: #ffe8cd;
+  --color-orange: #ffcd6b;
+  --color-orange-light: #fddc9b;
+  --color-blue-light: #e0e7ea;
+
+  /* Typography */
+  --font-sans: "Nexa", sans-serif;
+}

@@ -1,6 +1,7 @@
 import { fontLoader } from "@/utils/fontLoader";
 
-import "../assets/styles/globals.scss";
+import "../../assets/styles/tailwind-config.css";
+import "../../assets/styles/globals.scss";
 
 export default function RootLayout({
   children,

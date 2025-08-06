@@ -1,15 +1,8 @@
-import 'server-only'
+"use server";
 
-import { experimental_taintUniqueValue } from 'react'
+export const getSanityReadToken = async (): Promise<string> =>
+  process.env.SANITY_API_READ_TOKEN as string;
 
-export const sanityReadToken = process.env.SANITY_API_READ_TOKEN
-
-if (!sanityReadToken) {
-  throw new Error('Missing SANITY_API_READ_TOKEN')
+if (!getSanityReadToken) {
+  throw new Error("Missing SANITY_API_READ_TOKEN");
 }
-
-experimental_taintUniqueValue(
-  'Do not pass the Sanity API read token to the client.',
-  process,
-  sanityReadToken,
-)
