@@ -4,7 +4,7 @@ const nexa = localFont({
   src: [
     {
       path: "../assets/fonts/Nexa-Bold.woff2",
-      weight: "600",
+      weight: "700",
       style: "normal",
     },
     {

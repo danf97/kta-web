@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+:root {
+  --font-nexa-util: var(--font-nexa), sans-serif;
+}
+
+@layer utilities {
+  /*
+    Headings
+  */
+
+  .h1,
+  h1 {
+    font-family: var(--font-nexa-util);
+    font-size: 86px;
+    line-height: 140%;
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  .h2,
+  h2 {
+    font-family: var(--font-nexa-util);
+    font-size: 64px;
+    line-height: 130%;
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  .h3,
+  h3 {
+    font-family: var(--font-nexa-util);
+    font-size: 58px;
+    line-height: 120%;
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  .h5,
+  h5 {
+    font-family: var(--font-nexa-util);
+    font-size: 40px;
+    line-height: 120%;
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  /* .h4,
+  h4,
+  .h6,
+  h6 {
+  } */
+
+  /*
+    Body
+  */
+
+  .body-xl {
+    font-family: var(--font-nexa-util);
+    font-size: 30px;
+    line-height: 130%;
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .body-l {
+    font-family: var(--font-nexa-util);
+    font-size: 26px;
+    line-height: 130%;
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .body-m {
+    font-family: var(--font-nexa-util);
+    font-size: 22px;
+    line-height: 140%;
+    font-style: normal;
+    font-weight: 400;
+  }
+  .body-m-bold,
+  .body-m strong {
+    font-weight: 700;
+  }
+
+  .body-s {
+    font-family: var(--font-nexa-util);
+    font-size: 18px;
+    line-height: 120%;
+    font-style: normal;
+    font-weight: 400;
+  }
+  .body-s-bold,
+  .body-s strong {
+    font-weight: 700;
+  }
+
+  .body-xs {
+    font-family: var(--font-nexa-util);
+    font-size: 14px;
+    line-height: 120%;
+    font-style: normal;
+    font-weight: 400;
+  }
+  .body-xs-bold,
+  .body-xs strong {
+    font-weight: 700;
+  }
+}

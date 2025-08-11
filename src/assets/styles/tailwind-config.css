@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@import "./typography.css";
+
 @theme {
   /* Colors */
   --color-sand: #fff5e2;
@@ -9,6 +11,14 @@
   --color-orange-light: #fddc9b;
   --color-blue-light: #e0e7ea;
 
+  --color-gray: #4f4e4e;
+
   /* Typography */
   --font-sans: "Nexa", sans-serif;
+
+  /* Breakpoints */
+  --breakpoint-mobile: 375px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-smallDesktop: 1024px;
+  --breakpoint-desktop: 1440px;
 }

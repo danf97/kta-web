@@ -1,0 +1,138 @@
+"use client";
+
+// import { linkResolverClient } from "@/lib/utils";
+import { LinkGlobalObjectQueryResult } from "@/sanity/queries/objects/linkGlobalObject";
+import { sanityLinkResolver } from "@/sanity/lib/utils";
+import Link from "next/link";
+import { cleanClassName } from "@/utils/cleanClassName";
+import { useRouter } from "next/navigation";
+
+export type ButtonStyles = {
+  primary: {
+    idle: string;
+    active: string;
+    disabled: string;
+  };
+  secondary: {
+    idle: string;
+    active: string;
+    disabled: string;
+  };
+  ghost: {
+    idle: string;
+    active: string;
+    disabled: string;
+  };
+};
+
+export const buttonStyles = {
+  primary: {
+    idle: "bg-black text-white rounded-3xl hover:bg-gray",
+    active: "bg-reflex-blue-900 text-primary-white rounded-md",
+    disabled: "bg-neutral-100 text-neutral-500 pointer-events-none rounded-sm",
+  },
+  secondary: {
+    idle: "bg-neutral-100 text-blue-main rounded-sm hover:rounded-md hover:bg-reflex-blue-100",
+    active: "text-blue-main bg-reflex-blue-100 rounded-md",
+    disabled: "bg-neutral-100 text-neutral-500 pointer-events-none rounded-sm",
+  },
+  ghost: {
+    idle: "bg-transparent text-blue-main hover:text-reflex-blue-main hover:bg-reflex-blue-100 hover:rounded-md",
+    active: "bg-reflex-blue-100 text-reflex-blue-main rounded-md",
+    disabled: "bg-transparent text-neutral-500 pointer-events-none",
+  },
+} as ButtonStyles;
+
+export const buttonSizesStyles = {
+  large: "h-16 py-3 px-5",
+  medium: "py-3 px-5",
+};
+
+export const Button = ({
+  className = "",
+  type = "primary",
+  state = "idle",
+  size = "medium",
+  onClick,
+  href,
+  leftIcon,
+  rightIcon,
+  isLoading,
+  label,
+  disablePageLoadAnimation,
+}: {
+  className?: string;
+  type: "primary" | "secondary" | "ghost";
+  state?: "idle" | "active" | "disabled";
+  size?: "large" | "medium";
+  onClick?: (e: any) => void;
+  link?: LinkGlobalObjectQueryResult;
+  href?: string;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  isLoading?: boolean;
+  label?: string;
+  disablePageLoadAnimation?: boolean;
+}) => {
+  const router = useRouter();
+  // const { setPageLoading, handleMiniCart } = useContext(AppContext)
+  // const { setShowPreferences } = useContext(CookiesContext)
+
+  const hasUrl = false;
+  const classNames = cleanClassName(
+    `
+    group/btn
+    relative z-[1]
+    inline-flex items-center justify-center
+    body-m
+    ` +
+      (" " + buttonSizesStyles[size]) +
+      (" " + buttonStyles[type][isLoading ? "active" : state]) +
+      (" " + className)
+  );
+
+  const ButtonContent = () => (
+    <>
+      {leftIcon ? leftIcon : null}
+      <span
+        className={`mb-[-2px] transition-opacity duration-100 ${
+          isLoading ? "opacity-0" : ""
+        }`}
+      >
+        {label}
+      </span>
+      {rightIcon ? rightIcon : null}
+    </>
+  );
+
+  const onClickHandler = (e: any) => {
+    if (isLoading) return null;
+
+    // if (!disablePageLoadAnimation) {
+    //   setPageLoading(true)
+    // }
+
+    if (onClick) {
+      onClick(e);
+    }
+  };
+
+  return hasUrl || href ? (
+    <Link
+      href={"#"}
+      className={classNames}
+      role="button"
+      onClick={onClickHandler}
+    >
+      {ButtonContent()}
+    </Link>
+  ) : (
+    <button
+      className={classNames}
+      onClick={onClickHandler}
+      disabled={state === "disabled"}
+    >
+      {ButtonContent()}
+    </button>
+  );
+};

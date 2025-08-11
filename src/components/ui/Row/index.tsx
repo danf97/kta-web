@@ -14,7 +14,7 @@ export const Row = ({
   return (
     <Component
       ref={ref}
-      className={`m-auto flex w-full max-w-[1440px] flex-row flex-wrap px-[calc(24px-8px)] smallDesktop:px-[calc(24px-12px)] ${className}`}
+      className={`m-auto flex w-full max-w-[1440px] flex-row flex-wrap px-[calc(24px-8px)] smallDesktop:px-[calc(80px-16px)] ${className}`}
     >
       {children}
     </Component>
