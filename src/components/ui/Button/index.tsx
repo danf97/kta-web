@@ -27,25 +27,25 @@ export type ButtonStyles = {
 
 export const buttonStyles = {
   primary: {
-    idle: "bg-black text-white rounded-3xl hover:bg-gray",
+    idle: "cursor-pointer bg-black text-white rounded-3xl hover:bg-gray",
     active: "bg-reflex-blue-900 text-primary-white rounded-md",
     disabled: "bg-neutral-100 text-neutral-500 pointer-events-none rounded-sm",
   },
   secondary: {
-    idle: "bg-neutral-100 text-blue-main rounded-sm hover:rounded-md hover:bg-reflex-blue-100",
+    idle: "cursor-pointer bg-neutral-100 text-blue-main rounded-sm hover:rounded-md hover:bg-reflex-blue-100",
     active: "text-blue-main bg-reflex-blue-100 rounded-md",
     disabled: "bg-neutral-100 text-neutral-500 pointer-events-none rounded-sm",
   },
   ghost: {
-    idle: "bg-transparent text-blue-main hover:text-reflex-blue-main hover:bg-reflex-blue-100 hover:rounded-md",
+    idle: "cursor-pointer bg-transparent text-blue-main hover:text-reflex-blue-main hover:bg-reflex-blue-100 hover:rounded-md",
     active: "bg-reflex-blue-100 text-reflex-blue-main rounded-md",
     disabled: "bg-transparent text-neutral-500 pointer-events-none",
   },
 } as ButtonStyles;
 
 export const buttonSizesStyles = {
-  large: "h-16 py-3 px-5",
-  medium: "py-3 px-5",
+  large: "h-16 py-3 px-5 body-m",
+  medium: "py-3 px-5 body-s-bold pt-[9px]",
 };
 
 export const Button = ({
@@ -84,7 +84,6 @@ export const Button = ({
     group/btn
     relative z-[1]
     inline-flex items-center justify-center
-    body-m
     ` +
       (" " + buttonSizesStyles[size]) +
       (" " + buttonStyles[type][isLoading ? "active" : state]) +

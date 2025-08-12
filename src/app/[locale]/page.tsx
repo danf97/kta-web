@@ -14,11 +14,19 @@ export default async function Home({
   const home = await getSanityHomePage(locale);
   const pageTopImage = home.pageSettings?.image?.url;
 
+  console.log("home:", home);
+
   return (
-    <PageTemplate pageTopImage={pageTopImage}>
-      <div>ola</div>
+    <PageTemplate
+      pageTopImage={pageTopImage}
+      pageHead={{
+        title: home.title,
+        description: home.description,
+        cta: home.cta,
+      }}
+    >
       <Row>
-        <Col></Col>
+        <Col>ola</Col>
       </Row>
     </PageTemplate>
   );

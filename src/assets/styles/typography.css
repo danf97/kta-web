@@ -92,6 +92,10 @@
   }
   .body-s-bold,
   .body-s strong {
+    font-family: var(--font-nexa-util);
+    font-size: 18px;
+    line-height: 120%;
+    font-style: normal;
     font-weight: 700;
   }
 

@@ -1,43 +1,43 @@
-import { groq } from 'next-sanity'
+import { groq } from "next-sanity";
 
 export type LinkGlobalObjectQueryResult = {
-  linkType: 'internal' | 'external' | 'anchor' | 'action' | 'social'
-  title: string
-  description: string
+  linkType: "internal" | "external" | "anchor" | "action" | "social";
+  title: string;
+  description: string;
 } & (
   | {
-      linkType: 'internal'
+      linkType: "internal";
       internalLink: {
-        _type: 'collection' | 'page' | 'product' | 'policyDocument'
-        slug: string
-        lang?: string // Only available for pages
-        url: string
-      }
+        _type: "collection" | "page" | "product" | "policyDocument";
+        slug: string;
+        lang?: string; // Only available for pages
+        url: string;
+      };
     }
   | {
-      linkType: 'external'
+      linkType: "external";
       externalLink: {
-        url: string
-        target: '_blank' | '_self'
-      }
+        url: string;
+        target: "_blank" | "_self";
+      };
     }
   | {
-      linkType: 'social'
+      linkType: "social";
       externalLink: {
-        url: string
-        target: '_blank' | '_self'
-      }
-      icon: 'instagram' | 'x' | 'tiktok' | null
+        url: string;
+        target: "_blank" | "_self";
+      };
+      icon: "instagram" | "x" | "tiktok" | null;
     }
   | {
-      linkType: 'anchor'
-      anchor: string
+      linkType: "anchor";
+      anchor: string;
     }
   | {
-      linkType: 'action'
-      action: 'open_cookie_preferences' | 'open_bag' | 'open_my_account'
+      linkType: "action";
+      action: "open_cookie_preferences" | "open_bag" | "open_my_account";
     }
-)
+);
 
 const internalLinkResolver = groq`
   "internalLink": linkReference->{
@@ -50,19 +50,31 @@ const internalLinkResolver = groq`
       lang,
       "slug": slug.current,
       "url": "/page/" + slug.current,
+      ...
     },
     _type == "policyDocument" => {
       lang,
       "slug": slug.current,
       "url": "/policies/" + slug.current,
     },
-    _type == "product" => {
+    _type == "property" => {
       lang,
       "slug": store.slug.current,
-      "url": "/products/" + store.slug.current,
+      "url": "/property/" + store.slug.current,
     }
   }
-`
+`;
+
+const propertyLinkResolver = groq`
+  "internalLink": linkReference->{
+    _type,
+    _type == "property" => {
+      lang,
+      "slug": store.slug.current,
+      "url": "/property/" + store.slug.current,
+    }
+  }
+`;
 
 const linkResolver = groq`
   linkType == "internal" => {
@@ -97,7 +109,7 @@ const linkResolver = groq`
   linkType == "action" => {
     "action": linkAction
   }
-`
+`;
 
 export const linkGlobalObject = groq`
   _type == "linkGlobal" => {
@@ -106,4 +118,4 @@ export const linkGlobalObject = groq`
     description,
     ${linkResolver}
   }
-`
+`;
