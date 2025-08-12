@@ -13,11 +13,11 @@ export const cardsSlider = groq`
     title,
     layout,
     cards[]->{
-          title,
-          mainImage,
-          maxGuests,
-          wc,
-          bedrooms,
-        }
+      title,
+      mainImage,
+      maxGuests,
+      wc,
+      bedrooms,
+    }
   }
 `;
