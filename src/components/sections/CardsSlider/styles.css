@@ -1,0 +1,13 @@
+.swiper-slide {
+  padding-top: 10px;
+  transition: padding-top 0.3s ease;
+}
+
+.swiper-slide-next,
+.swiper-slide-prev {
+  /* padding-top: 10px; */
+}
+
+.swiper-slide-active {
+  padding-top: 0;
+}

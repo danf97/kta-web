@@ -110,4 +110,34 @@
   .body-xs strong {
     font-weight: 700;
   }
+
+  .body-xxs {
+    font-family: var(--font-nexa-util);
+    font-size: 12px;
+    line-height: 130%;
+    font-style: normal;
+    font-weight: 400;
+  }
+  .body-xxs-bold,
+  .body-xxs strong {
+    font-family: var(--font-nexa-util);
+    font-size: 12px;
+    line-height: 130%;
+    font-style: normal;
+    font-weight: 400;
+    font-weight: 700;
+  }
+
+  /*
+    Details
+  */
+
+  .card-caps {
+    font-family: var(--font-nexa-util);
+    font-size: 10px;
+    line-height: 100%;
+    font-style: normal;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
 }

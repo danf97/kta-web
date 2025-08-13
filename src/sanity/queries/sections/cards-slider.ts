@@ -1,23 +1,45 @@
 import { groq } from "next-sanity";
+import { ImageObject, ImageObjectType } from "../objects/imageObject";
 
-export type ImagesRowQueryResult = {
+export type PropertyCardType = {
+  _key: string;
+  slug: {
+    current: string;
+  };
   title: string;
-  images: {
-    _key: string;
-    url: string;
+  mainImage: ImageObjectType;
+  maxGuests: number | null;
+  wc: number | null;
+  bedrooms: number | null;
+  mainFacilities: {
+    featureType: string;
   }[];
 };
 
-export const cardsSlider = groq`
+export type cardsSliderSectionQueryResult = {
+  title: string;
+  layout: "centered" | "aligned-left";
+  cards: PropertyCardType[];
+};
+
+export const cardsSliderSection = groq`
   _type == "cardsSlider" => {
     title,
     layout,
     cards[]->{
+      _type,
+      _key,
+      slug,
       title,
-      mainImage,
+      mainImage {
+        ${ImageObject}
+      },
       maxGuests,
       wc,
       bedrooms,
+      mainFacilities[]{
+        featureType
+      }
     }
   }
 `;
