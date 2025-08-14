@@ -1,0 +1,29 @@
+.cards-slider {
+  .swiper-slide {
+    padding-top: 10px;
+    transition: padding-top 0.3s ease;
+  }
+
+  .swiper-slide-active {
+    padding-top: 0;
+  }
+
+  /*
+    Animation for the when dom is initialized
+  */
+
+  .swiper-slide > a {
+    opacity: 0;
+    transition-property: opacity;
+    transition-timing-function: ease-in-out;
+    transition-duration: 0.2s;
+  }
+
+  .swiper-initialized {
+    .swiper-slide > a {
+      &.show {
+        opacity: 1;
+      }
+    }
+  }
+}

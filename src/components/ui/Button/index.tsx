@@ -28,8 +28,8 @@ export type ButtonStyles = {
 export const buttonStyles = {
   primary: {
     idle: "cursor-pointer bg-black text-white rounded-3xl hover:bg-gray",
-    active: "bg-reflex-blue-900 text-primary-white rounded-md",
-    disabled: "bg-neutral-100 text-neutral-500 pointer-events-none rounded-sm",
+    active: "bg-reflex-blue-900 text-primary-white rounded-md rounded-3xl",
+    disabled: "bg-neutral-400 text-white pointer-events-none rounded-3xl",
   },
   secondary: {
     idle: "cursor-pointer bg-neutral-100 text-blue-main rounded-sm hover:rounded-md hover:bg-reflex-blue-100",
@@ -46,6 +46,7 @@ export const buttonStyles = {
 export const buttonSizesStyles = {
   large: "h-16 py-3 px-5 body-m",
   medium: "py-3 px-5 body-s-bold pt-[9px]",
+  small: "h-8 w-8 flex justify-center items-center [&>svg]:w-4 [&>svg]:h-4",
 };
 
 export const Button = ({
@@ -64,7 +65,7 @@ export const Button = ({
   className?: string;
   type: "primary" | "secondary" | "ghost";
   state?: "idle" | "active" | "disabled";
-  size?: "large" | "medium";
+  size?: "large" | "medium" | "small";
   onClick?: (e: any) => void;
   link?: LinkGlobalObjectQueryResult;
   href?: string;
@@ -93,13 +94,15 @@ export const Button = ({
   const ButtonContent = () => (
     <>
       {leftIcon ? leftIcon : null}
-      <span
-        className={`mb-[-2px] transition-opacity duration-100 ${
-          isLoading ? "opacity-0" : ""
-        }`}
-      >
-        {label}
-      </span>
+      {label ? (
+        <span
+          className={`mb-[-2px] transition-opacity duration-100 ${
+            isLoading ? "opacity-0" : ""
+          }`}
+        >
+          {label}
+        </span>
+      ) : null}
       {rightIcon ? rightIcon : null}
     </>
   );

@@ -14,6 +14,9 @@ export type PropertyCardType = {
   mainFacilities: {
     featureType: string;
   }[];
+  propertyType: string;
+  propertyLocation: string;
+  fromPrice: number;
 };
 
 export type cardsSliderSectionQueryResult = {
@@ -39,7 +42,10 @@ export const cardsSliderSection = groq`
       bedrooms,
       mainFacilities[]{
         featureType
-      }
+      },
+      propertyType,
+      propertyLocation,
+      fromPrice
     }
   }
 `;

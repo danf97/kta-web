@@ -6,7 +6,9 @@ import { SectionType } from "@/sanity/queries/sections";
 import PropertyCard from "@/components/cards/PropertyCard";
 
 import "swiper/css";
-import "./styles.css";
+import "./styles.scss";
+import { useEffect } from "react";
+import SliderControls from "@/components/ui/SliderControls";
 
 const CardsSlider = ({
   section,
@@ -16,14 +18,25 @@ const CardsSlider = ({
   index: number;
 }) => {
   console.log("CardsSlider section:", section);
+
+  useEffect(() => {
+    // find all a elements on .cards-slider
+    const links = document.querySelectorAll(".cards-slider a");
+    links.forEach((link, index) => {
+      setTimeout(() => {
+        link.classList.add("show");
+      }, 150 * index);
+    });
+  });
+
   return (
     <div key={section._key || index} className="cards-slider">
       <Swiper
         spaceBetween={22}
         // slidesPerView={3}
-        onSlideChange={() => console.log("slide change")}
+        // onSlideChange={() => {}}
         onSwiper={(swiper) => {
-          swiper.slideTo(3, 0, false);
+          swiper.slideTo(2, 0, false);
         }}
         centeredSlides={section.layout === "centered"}
         slidesPerView={"auto"}
@@ -33,7 +46,7 @@ const CardsSlider = ({
             <PropertyCard property={card} />
           </SwiperSlide>
         ))}
-        ...
+        <SliderControls />
       </Swiper>
     </div>
   );
