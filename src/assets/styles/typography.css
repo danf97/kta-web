@@ -45,6 +45,15 @@
     font-weight: 400;
   }
 
+  .h6,
+  h6 {
+    font-family: var(--font-nexa-util);
+    font-size: 36px;
+    line-height: 120%;
+    font-style: normal;
+    font-weight: 400;
+  }
+
   /* .h4,
   h4,
   .h6,

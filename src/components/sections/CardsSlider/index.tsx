@@ -17,8 +17,6 @@ const CardsSlider = ({
   section: SectionType<cardsSliderSectionQueryResult>;
   index: number;
 }) => {
-  console.log("CardsSlider section:", section);
-
   useEffect(() => {
     // find all a elements on .cards-slider
     const links = document.querySelectorAll(".cards-slider a");
@@ -30,7 +28,7 @@ const CardsSlider = ({
   });
 
   return (
-    <div key={section._key || index} className="cards-slider">
+    <div key={section._key || index} className="cards-slider vertical-space">
       <Swiper
         spaceBetween={22}
         // slidesPerView={3}

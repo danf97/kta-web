@@ -5,6 +5,11 @@ import {
   cardsSliderSection,
   cardsSliderSectionQueryResult,
 } from "./cards-slider";
+import {
+  featuredCardsQueryResult,
+  featuredCardsSection,
+} from "./featured-cards";
+import { BannerQueryResult, bannerSection } from "./banner";
 
 export type SectionType<T> = {
   _type: string;
@@ -12,7 +17,10 @@ export type SectionType<T> = {
 } & T;
 
 export type sectionsQueryResult = SectionType<
-  QuoteSectionQueryResult | cardsSliderSectionQueryResult
+  | QuoteSectionQueryResult
+  | cardsSliderSectionQueryResult
+  | BannerQueryResult
+  | featuredCardsQueryResult
 >;
 
 export const sectionsQuery = groq`
@@ -20,6 +28,8 @@ export const sectionsQuery = groq`
     _type,
     _key,
     ${quoteSection},
-    ${cardsSliderSection}
+    ${cardsSliderSection},
+    ${featuredCardsSection},
+    ${bannerSection}
   }
 `;

@@ -1,9 +1,9 @@
 "use client";
 
-import { PropertyCardType } from "@/sanity/queries/sections/cards-slider";
+import { PropertyCardType } from "@/sanity/queries/objects/propertyCardObject";
 import Image from "next/image";
 import Link from "next/link";
-import { use, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const PropertyCard = ({ property }: { property: PropertyCardType }) => {
   const {

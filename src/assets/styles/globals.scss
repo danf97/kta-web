@@ -1,9 +1,25 @@
-
-
 * {
   -webkit-font-smoothing: antialiased;
 }
 
-html, body {
+html,
+body {
   background-color: var(--color-sand);
+}
+
+// Vertical Space
+
+.vertical-space {
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+
+// Background pattern orange
+
+.background-pattern-orange {
+  background-image: url("/images/banner_pattern.svg");
+  background-repeat: 5px repeat;
+  background-size: 200px;
+  background-position: center;
+  background-color: #ffe8cd;
 }
