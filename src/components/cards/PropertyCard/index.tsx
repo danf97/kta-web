@@ -63,7 +63,7 @@ const PropertyCard = ({ property }: { property: PropertyCardType }) => {
 
   return (
     <Link
-      href={`/property/${slug.current}`}
+      href={`/properties/${slug.current}`}
       className="bg-sand-light block w-[298px] border border-black rounded-3xl overflow-hidden hover:bg-sand-dark"
     >
       <div className="flex flex-col">

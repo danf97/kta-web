@@ -60,7 +60,7 @@ const internalLinkResolver = groq`
     _type == "property" => {
       lang,
       "slug": store.slug.current,
-      "url": "/property/" + store.slug.current,
+      "url": "/properties/" + store.slug.current,
     }
   }
 `;
@@ -71,7 +71,7 @@ const propertyLinkResolver = groq`
     _type == "property" => {
       lang,
       "slug": store.slug.current,
-      "url": "/property/" + store.slug.current,
+      "url": "/properties/" + store.slug.current,
     }
   }
 `;
