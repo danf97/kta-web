@@ -1,31 +1,16 @@
-import PageTemplate from "@/components/global/PageTemplate";
 import PropertyTemplate from "@/components/property/PropertyTemplate";
-import { SectionZone } from "@/components/sections";
-import { Col } from "@/components/ui/Col";
-import { Row } from "@/components/ui/Row";
 import { getSanityHomePage } from "@/sanity/services";
+import { getSanityProperty } from "@/sanity/services/getSanityProperty";
 
-export default async function Pr({
+export default async function Property({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: string; uid: string }>;
 }) {
-  const { locale } = await params;
-  const home = await getSanityHomePage(locale);
-  const pageTopImage = home.pageSettings?.image?.url;
-  const sections = home.sections;
-  console.log("home:", home);
+  const { locale, uid } = await params;
+  const property = await getSanityProperty({ slug: uid, lang: locale });
 
-  return (
-    <PropertyTemplate
-      pageTopImage={pageTopImage}
-      pageHead={{
-        title: home.title,
-        description: home.description,
-        cta: home.cta,
-      }}
-    >
-      <div>{sections ? <SectionZone sections={sections} /> : null}</div>
-    </PropertyTemplate>
-  );
+  console.log("property:", property);
+
+  return <PropertyTemplate property={property} />;
 }

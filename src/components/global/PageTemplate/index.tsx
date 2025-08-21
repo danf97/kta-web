@@ -16,7 +16,7 @@ const PageTemplate = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className="bg-sand relative h-[200vh] z-[1]">
+    <div className="bg-sand relative min-h-[100vh] z-[1]">
       {pageTopImage && pageTopImage !== null ? (
         <PageTop image={pageTopImage} />
       ) : null}
