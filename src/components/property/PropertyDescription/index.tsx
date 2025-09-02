@@ -1,5 +1,7 @@
+import { mainStringsResolver } from "@/libs/mainStrings";
 import { translatableTextObjectType } from "@/sanity/queries/objects/translatableTextObject";
 import { multilangFieldResolver } from "@/utils/multilangFieldResolver";
+import Link from "next/link";
 
 const PropertyDescription = ({
   mainDescription,
@@ -12,7 +14,10 @@ const PropertyDescription = ({
   license?: string;
   lang?: string;
 }) => {
-  const itemsStyles = "flex flex-col justify-end items-center mr-4 p-2 gap-3";
+  const licenseUrl = `https://rnt.turismodeportugal.pt/rnt/RNAL.aspx?nr=${license?.replace(
+    "/AL",
+    ""
+  )}`;
 
   return (
     <div className="flex flex-col gap-8">
@@ -22,7 +27,17 @@ const PropertyDescription = ({
 
       <p>{multilangFieldResolver(fullDescription, lang)}</p>
 
-      <p>{license}</p>
+      <p>
+        {mainStringsResolver("license", lang)}
+        <Link
+          href={licenseUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:underline"
+        >
+          {license}
+        </Link>
+      </p>
     </div>
   );
 };

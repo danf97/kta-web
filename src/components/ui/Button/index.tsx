@@ -28,13 +28,13 @@ export type ButtonStyles = {
 export const buttonStyles = {
   primary: {
     idle: "cursor-pointer bg-black text-white rounded-3xl hover:bg-gray",
-    active: "bg-reflex-blue-900 text-primary-white rounded-md rounded-3xl",
+    active: "bg-gray text-white rounded-md rounded-3xl",
     disabled: "bg-neutral-400 text-white pointer-events-none rounded-3xl",
   },
   secondary: {
-    idle: "cursor-pointer bg-neutral-100 text-blue-main rounded-sm hover:rounded-md hover:bg-reflex-blue-100",
-    active: "text-blue-main bg-reflex-blue-100 rounded-md",
-    disabled: "bg-neutral-100 text-neutral-500 pointer-events-none rounded-sm",
+    idle: "cursor-pointer bg-orange-light text-black rounded-3xl hover:bg-orange",
+    active: "bg-orange text-black rounded-md rounded-3xl",
+    disabled: "bg-neutral-400 text-white pointer-events-none rounded-3xl",
   },
   ghost: {
     idle: "cursor-pointer bg-transparent text-blue-main hover:text-reflex-blue-main hover:bg-reflex-blue-100 hover:rounded-md",

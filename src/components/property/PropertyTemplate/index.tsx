@@ -9,6 +9,9 @@ import { PropertyQueryResult } from "@/sanity/queries/documents/property";
 import Image from "next/image";
 import PropertyIconSummary from "../PropertyIconSummary";
 import PropertyDescription from "../PropertyDescription";
+import PropertyHr from "../PropertyHr";
+import PropertyPhotos from "../PropertyPhotos";
+import { useState } from "react";
 
 const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
   const {
@@ -29,13 +32,21 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
     mainDescription,
     fullDescription,
     license,
+    // Photos
+    photos,
   } = property;
 
   const spaceStyles = `my-12`;
 
+  const [photoSliderIsOpen, setPhotoSliderIsOpen] = useState(false);
+
+  const togglePhotoSlider = () => {
+    setPhotoSliderIsOpen((prev) => !prev);
+  };
+
   return (
-    <div className="bg-sand z-[1] relative h-[500vh]">
-      <div className="relative h-screen border-b border-black">
+    <div className="bg-sand z-[1] relative">
+      <div className="relative h-[calc(100vh-76px)] border-b border-black overflow-hidden w-full">
         <div className="absolute top-0 left-0 leading-0 w-[calc(100vw+4px)] h-full pointer-events-none z-[-1]">
           {mainImage?.url ? (
             <Image
@@ -61,7 +72,7 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
         </div>
       </div>
 
-      <div className="h-[76px] border-b border-black flex items-center justify-center sticky top-0">
+      <div className="h-[76px] border-b border-black flex items-center justify-center sticky top-0 z-[1] bg-sand">
         <Row>
           <Col className="w-full">
             <nav>
@@ -109,6 +120,17 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
               fullDescription={fullDescription}
               license={license}
               lang={lang}
+            />
+          </div>
+
+          <PropertyHr />
+
+          <div className={spaceStyles}>
+            <PropertyPhotos
+              photos={photos}
+              lang={lang}
+              photoSliderIsOpen={photoSliderIsOpen}
+              togglePhotoSlider={togglePhotoSlider}
             />
           </div>
         </Col>

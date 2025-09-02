@@ -24,6 +24,10 @@ const mainStrings = {
     en: "wc",
     pt: "wc",
   },
+  license: {
+    en: "License number: ",
+    pt: "Licença número: ",
+  },
 } as const;
 
 type MainStringsType = typeof mainStrings;

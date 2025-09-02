@@ -5,6 +5,7 @@ import PageTop from "../PageTop";
 import { Col } from "@/components/ui/Col";
 import { Button } from "@/components/ui/Button";
 import { pageHeadObjectType } from "@/sanity/queries/objects/pageHeadObject";
+import Footer from "../Footer";
 
 const PageTemplate = ({
   pageTopImage,
@@ -43,6 +44,8 @@ const PageTemplate = ({
       </Row>
 
       {children}
+
+      <Footer />
     </div>
   );
 };
