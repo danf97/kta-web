@@ -2,16 +2,21 @@
 
 import { Button } from "@/components/ui/Button";
 import { PropertyCardType } from "@/sanity/queries/objects/propertyCardObject";
+import { multilangFieldResolver } from "@/utils/multilangFieldResolver";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 const BigPropertyCard = ({
+  key,
   property,
   align,
+  lang,
 }: {
+  key: number;
   property: PropertyCardType;
   align: "left" | "right";
+  lang: string;
 }) => {
   const { title, mainImage, propertyLocation, propertyType, mainDescription } =
     property;
@@ -21,7 +26,7 @@ const BigPropertyCard = ({
   }
 
   return (
-    <div className="mt-10">
+    <div className="mt-10" key={key}>
       <div
         className={`flex flex-row min-h-[593px] z-[1] relative overflow-hidden rounded-3xl border border-black ${
           align === "left" ? "" : "justify-end"
@@ -45,7 +50,9 @@ const BigPropertyCard = ({
           </div>
 
           <div>
-            <p className="body-s">{mainDescription}.</p>
+            <p className="body-s">
+              {multilangFieldResolver(mainDescription, lang)}
+            </p>
           </div>
 
           <div>

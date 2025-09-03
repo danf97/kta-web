@@ -19,10 +19,6 @@ const PropertyCard = ({ property }: { property: PropertyCardType }) => {
     propertyType,
   } = property;
 
-  if (!mainImage || !mainImage.url) {
-    return <div>Missing image</div>; // Handle case where mainImage is not available
-  }
-
   const fromPriceMoney = fromPrice.toLocaleString("pt-PT", {
     style: "currency",
     currency: "EUR",
@@ -60,6 +56,10 @@ const PropertyCard = ({ property }: { property: PropertyCardType }) => {
       });
     }
   }, [bulletsRef]);
+
+  if (!mainImage || !mainImage.url) {
+    return <div>Missing image</div>; // Handle case where mainImage is not available
+  }
 
   return (
     <Link

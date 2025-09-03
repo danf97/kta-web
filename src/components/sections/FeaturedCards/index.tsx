@@ -4,19 +4,22 @@ import { Row } from "@/components/ui/Row";
 import { Col } from "@/components/ui/Col";
 import { Button } from "@/components/ui/Button";
 import BigPropertyCard from "@/components/cards/BigPropertyCard";
+import { SectionZoneProps } from "../SectionZone";
 
 const FeaturedCards = ({
   section,
   index,
+  context,
 }: {
   section: SectionType<featuredCardsQueryResult>;
   index: number;
+  context: SectionZoneProps["context"];
 }) => {
-  const { title, cta, cards } = section;
+  const { title, cta, cards, _key } = section;
+  const { lang } = context;
 
-  console.log("Featured Cards Section:", section);
   return (
-    <div key={section._key || index} className="featured-cards vertical-space">
+    <div key={_key || index} className="featured-cards vertical-space">
       <Row>
         <Col className="w-1/2">
           <h2 className="h6">{title}</h2>
@@ -33,6 +36,7 @@ const FeaturedCards = ({
               key={index}
               property={card}
               align={index % 2 === 0 ? "left" : "right"}
+              lang={lang}
             />
           ))}
         </Col>

@@ -1,5 +1,6 @@
 import { groq } from "next-sanity";
 import { ImageObject, ImageObjectType } from "./imageObject";
+import { translatableTextObjectType } from "./translatableTextObject";
 
 export type PropertyCardType = {
   _key: string;
@@ -17,7 +18,7 @@ export type PropertyCardType = {
   propertyType: string;
   propertyLocation: string;
   fromPrice: number;
-  mainDescription: string;
+  mainDescription: translatableTextObjectType;
 };
 
 export const propertyCardObject = groq`

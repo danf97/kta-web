@@ -1,17 +1,14 @@
 "use client";
 
-import { Row } from "@/components/ui/Row";
-
-import { Col } from "@/components/ui/Col";
-import { Button } from "@/components/ui/Button";
-import { pageHeadObjectType } from "@/sanity/queries/objects/pageHeadObject";
-import { PropertyQueryResult } from "@/sanity/queries/documents/property";
+import { useState } from "react";
 import Image from "next/image";
+import { Row } from "@/components/ui/Row";
+import { Col } from "@/components/ui/Col";
+import { PropertyQueryResult } from "@/sanity/queries/documents/property";
 import PropertyIconSummary from "../PropertyIconSummary";
 import PropertyDescription from "../PropertyDescription";
 import PropertyHr from "../PropertyHr";
 import PropertyPhotos from "../PropertyPhotos";
-import { useState } from "react";
 
 const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
   const {

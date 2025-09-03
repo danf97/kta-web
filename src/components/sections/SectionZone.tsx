@@ -2,12 +2,19 @@ import { Fragment, jsx } from "react/jsx-runtime";
 import { sanitySections } from ".";
 import { sectionsQueryResult } from "@/sanity/queries/sections";
 
-type SectionZoneProps = {
+export type SectionZoneProps = {
   sections?: sectionsQueryResult;
-  context?: null | Record<string, unknown>;
+  context: {
+    lang: string;
+  } & { [key: string]: string | number | boolean | null | undefined };
 };
 
-export const SectionZone = ({ sections, context = {} }: SectionZoneProps) => {
+export const SectionZone = ({
+  sections,
+  context = {
+    lang: "en",
+  },
+}: SectionZoneProps) => {
   if (!sections || !Array.isArray(sections) || sections.length === 0) {
     return <div>No sections available.</div>;
   }

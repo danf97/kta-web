@@ -24,7 +24,16 @@ export default async function Home({
         cta: home.cta,
       }}
     >
-      <div>{sections ? <SectionZone sections={sections} /> : null}</div>
+      <div>
+        {sections ? (
+          <SectionZone
+            sections={sections}
+            context={{
+              lang: locale,
+            }}
+          />
+        ) : null}
+      </div>
     </PageTemplate>
   );
 }
