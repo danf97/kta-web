@@ -37,16 +37,17 @@ export const buttonStyles = {
     disabled: "bg-neutral-400 text-white pointer-events-none rounded-3xl",
   },
   ghost: {
-    idle: "cursor-pointer bg-transparent text-blue-main hover:text-reflex-blue-main hover:bg-reflex-blue-100 hover:rounded-md",
-    active: "bg-reflex-blue-100 text-reflex-blue-main rounded-md",
-    disabled: "bg-transparent text-neutral-500 pointer-events-none",
+    idle: "cursor-pointer bg-transperant text-black rounded-3xl hover:bg-orange",
+    active:
+      "cursor-pointer bg-orange-light text-black rounded-3xl hover:bg-orange",
+    disabled: "bg-transperant text-black rounded-3xl hover:bg-orange",
   },
 } as ButtonStyles;
 
 export const buttonSizesStyles = {
   large: "h-16 py-3 px-5 body-m",
   medium: "py-3 px-5 body-s-bold pt-[9px]",
-  small: "h-8 w-8 flex justify-center items-center [&>svg]:w-4 [&>svg]:h-4",
+  small: "py-3 px-3 body-16 pt-[9px]",
 };
 
 export const Button = ({
@@ -56,6 +57,7 @@ export const Button = ({
   size = "medium",
   onClick,
   href,
+  link,
   leftIcon,
   rightIcon,
   isLoading,
@@ -79,7 +81,18 @@ export const Button = ({
   // const { setPageLoading, handleMiniCart } = useContext(AppContext)
   // const { setShowPreferences } = useContext(CookiesContext)
 
-  const hasUrl = false;
+  const actionResolvers = {
+    test: () => {
+      console.log("test");
+    },
+  };
+
+  const LinkData =
+    link && "linkType" in link
+      ? sanityLinkResolver(link, actionResolvers)
+      : null;
+
+  const hasUrl = LinkData && "url" in LinkData && LinkData.url !== null;
   const classNames = cleanClassName(
     `
     group/btn
