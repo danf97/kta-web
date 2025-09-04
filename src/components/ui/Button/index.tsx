@@ -47,7 +47,9 @@ export const buttonStyles = {
 export const buttonSizesStyles = {
   large: "h-16 py-3 px-5 body-m",
   medium: "py-3 px-5 body-s-bold pt-[9px]",
-  small: "py-3 px-3 body-16 pt-[9px]",
+  small:
+    "py-3 px-3 body-16 pt-[9px] flex justify-center items-center [&>svg]:w-4 [&>svg]:h-4",
+  icon: "h-8 w-8 flex justify-center items-center [&>svg]:w-4 [&>svg]:h-4",
 };
 
 export const Button = ({
@@ -67,7 +69,7 @@ export const Button = ({
   className?: string;
   type: "primary" | "secondary" | "ghost";
   state?: "idle" | "active" | "disabled";
-  size?: "large" | "medium" | "small";
+  size?: "large" | "medium" | "small" | "icon";
   onClick?: (e: any) => void;
   link?: LinkGlobalObjectQueryResult;
   href?: string;

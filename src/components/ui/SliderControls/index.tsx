@@ -37,7 +37,7 @@ const SliderControls = () => {
     <div className="flex items-center mt-dim_6 justify-center">
       <Button
         type="primary"
-        size="small"
+        size="icon"
         state={allowSlidePrev ? "idle" : "disabled"}
         onClick={() => {
           updateSliderControls();
@@ -48,7 +48,7 @@ const SliderControls = () => {
       <div className="pl-1" />
       <Button
         type="primary"
-        size="small"
+        size="icon"
         state={allowSlideNext ? "idle" : "disabled"}
         onClick={() => {
           updateSliderControls();

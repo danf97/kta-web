@@ -131,7 +131,7 @@ const PropertyPhotos = ({
             <Button
               className="!absolute right-4 top-1/2 -translate-y-1/2"
               type="secondary"
-              size="small"
+              size="icon"
               state={
                 activePhotoIndex === photosUrls.length - 1 ? "disabled" : "idle"
               }
@@ -171,7 +171,7 @@ const PropertyPhotos = ({
         <div className="flex flex-col gap-2 justify-between absolute right-4 top-1/2 -translate-y-1/2">
           <Button
             type="primary"
-            size="small"
+            size="icon"
             state={activePhotoIndex === 0 ? "disabled" : "idle"}
             onClick={() => {
               // setActivePhotoIndex((prev) => Math.max(prev - 1, 0));
@@ -181,7 +181,7 @@ const PropertyPhotos = ({
           />
           <Button
             type="primary"
-            size="small"
+            size="icon"
             state={
               activePhotoIndex === photosUrls.length - 1 ? "disabled" : "idle"
             }

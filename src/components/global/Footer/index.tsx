@@ -13,7 +13,8 @@ const Footer = () => {
               <LogoKta className="h-7 w-auto hover:opacity-60" />
             </Link>
           </div>
-          © {new Date().getFullYear()} My Website. All rights reserved.
+          <div></div>© {new Date().getFullYear()} My Website. All rights
+          reserved.
         </Col>
       </Row>
     </footer>
