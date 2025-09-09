@@ -1,37 +1,46 @@
 import { defineQuery } from "next-sanity";
 import { sectionsQuery, sectionsQueryResult } from "../sections";
-import { ImageObject, ImageObjectType } from "../objects/imageObject";
 import { seoObject, SeoObjectType } from "../objects/seoObject";
+import { pageHeadObject, pageHeadObjectType } from "../objects/pageHeadObject";
+import {
+  pageSettingsObject,
+  PageSettingsObjectType,
+} from "../objects/pageSettingsObject";
 
 export type PageQueryResult = {
   meta: {
     slug: string;
     lang: string;
   };
-  title: string;
-  altTitle: string;
-  title_size: "large" | "medium";
-  image: ImageObjectType;
   seo: SeoObjectType;
   sections: sectionsQueryResult;
-};
+  pageSettings: PageSettingsObjectType;
+} & pageHeadObjectType;
 
 export const PAGE_QUERY = defineQuery(`*[
- _type == "page" && slug.current == $slug
+ _type == "page" && lang == $lang && slug.current == $slug
 ][0]{
-   "meta": {
+  "meta": {
     "slug": slug.current,
     "lang": lang
   },
-  title,
-  altTitle,
-  title_size,
-  image {
-    ${ImageObject}
-  },
+  ${pageHeadObject},
   ${seoObject},
-  sections[] {
-    ${sectionsQuery}
-  }
+  ${sectionsQuery},
+  ${pageSettingsObject}
 }
 `);
+// export const PAGE_QUERY = defineQuery(`*[
+//  _type == "page" && lang == $lang && slug.current == $slug
+// ][0]{
+//    "meta": {
+//     "slug": slug.current,
+//     "lang": lang
+//   },
+//   title,
+//   // ${pageHeadObject},
+//   // ${seoObject},
+//   // ${sectionsQuery},
+//   // ${pageSettingsObject}
+// }
+// `);

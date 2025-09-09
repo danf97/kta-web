@@ -15,5 +15,5 @@ export const pageHeadObject = groq`
   description,
   cta {
     ${linkGlobalObject}
-  },
+  }
 `;

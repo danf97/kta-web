@@ -1,5 +1,4 @@
 import PropertyTemplate from "@/components/property/PropertyTemplate";
-import { getSanityHomePage } from "@/sanity/services";
 import { getSanityProperty } from "@/sanity/services/getSanityProperty";
 
 export default async function Property({

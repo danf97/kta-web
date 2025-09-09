@@ -1,12 +1,12 @@
-import { groq } from 'next-sanity'
+import { groq } from "next-sanity";
 
 export type SeoObjectType = {
-  title: string | null
-  description: string | null
+  title: string | null;
+  description: string | null;
   image: {
-    url: string | null
-  }
-} | null
+    url: string | null;
+  };
+} | null;
 
 export const seoObject = groq`
   seo {
@@ -16,4 +16,4 @@ export const seoObject = groq`
       "url": asset->url
     }
   }
-`
+`;
