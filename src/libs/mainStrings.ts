@@ -226,7 +226,7 @@ const mainStrings = {
     en: "License number: ",
     pt: "Licença número: ",
   },
-  photos: {
+  Photos: {
     en: "Photos",
     pt: "Fotos",
   },
@@ -293,6 +293,54 @@ const mainStrings = {
     en: "Free",
     pt: "Grátis",
   },
+  "Cancelation policy": {
+    en: "Cancelation policy",
+    pt: "Política de cancelamento",
+  },
+  Dias: {
+    en: "Days",
+    pt: "Dias",
+  },
+  "General rules": {
+    en: "General rules",
+    pt: "Regras gerais",
+  },
+  "Children are welcome": {
+    en: "Children are welcome",
+    pt: "Crianças são bem-vindas",
+  },
+  "Children are not welcome": {
+    en: "Children are not welcome",
+    pt: "Crianças não são bem-vindas",
+  },
+  "No parties or events": {
+    en: "No parties or events",
+    pt: "Sem festas ou eventos",
+  },
+  "Parties or events allowed": {
+    en: "Parties or events allowed",
+    pt: "Festas ou eventos permitidos",
+  },
+  "Smoking allowed": {
+    en: "Smoking is allowed",
+    pt: "Fumar é permitido",
+  },
+  "No smoking": {
+    en: "No smoking",
+    pt: "Proibido fumar",
+  },
+  "Pets allowed": {
+    en: "Pets allowed",
+    pt: "Animais de estimação permitidos",
+  },
+  "No pets": {
+    en: "Pets are not allowed",
+    pt: "Proibido animais de estimação",
+  },
+  Deposit: {
+    en: "Deposit",
+    pt: "Caução",
+  },
 } as const;
 
 type MainStringsType = typeof mainStrings;
@@ -301,6 +349,6 @@ export const mainStringsResolver = (
   key: keyof MainStringsType | string,
   lang: string
 ) => {
-  // @ts-expect-error
+  // @ts-expect-error - Ignore dynamic key access issue
   return mainStrings?.[key]?.[lang] || `{${key}}`;
 };

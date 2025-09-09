@@ -16,6 +16,7 @@
     "next": "15.4.5",
     "next-sanity": "^10.0.10",
     "react": "19.1.0",
+    "react-anchor-navigation": "^0.2.7",
     "react-dom": "19.1.0",
     "sanity-image": "^1.0.0",
     "sass": "^1.90.0",

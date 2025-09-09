@@ -51,9 +51,15 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
     smokingAllowed,
     useDefaultRules,
     defaultRules,
+    valorCaucao,
+    checkInGreenTime,
+    checkInOrangeTime,
+    checkInRedTime,
+    checkOutTime,
   } = property;
 
   const rules = {
+    valorCaucao,
     checkinHour,
     checkoutEnd,
     checkoutStart,
@@ -64,6 +70,10 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
     smokingAllowed,
     useDefaultRules,
     defaultRules,
+    checkInGreenTime,
+    checkInOrangeTime,
+    checkInRedTime,
+    checkOutTime,
   };
 
   console.log({ property });

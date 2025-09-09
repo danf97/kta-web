@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/Button";
 import { Col } from "@/components/ui/Col";
 import { Row } from "@/components/ui/Row";
+import { mainStringsResolver } from "@/libs/mainStrings";
 import { ImageObjectType } from "@/sanity/queries/objects/imageObject";
 import {
   ArrowDownIcon,
@@ -74,7 +75,7 @@ const PropertyPhotos = ({
   return (
     <div className="flex flex-col">
       <div className="flex items-center justify-between mb-12">
-        <h2 className="body-l">Photos</h2>
+        <h2 className="body-l"> {mainStringsResolver("Photos", lang)}</h2>
 
         <Button type="secondary" label="See all" onClick={togglePhotoSlider} />
       </div>

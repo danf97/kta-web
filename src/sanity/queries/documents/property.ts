@@ -51,6 +51,10 @@ export type Amenities = {
 };
 
 export type RulesType = {
+  checkInGreenTime: translatableTextObjectType;
+  checkInOrangeTime: translatableTextObjectType;
+  checkInRedTime: translatableTextObjectType;
+  checkOutTime: translatableTextObjectType;
   childrenWelcome: boolean;
   petsAllowed: boolean;
   smokingAllowed: boolean;
@@ -58,8 +62,9 @@ export type RulesType = {
   otherRules: {
     title: translatableTextObjectType;
     description: translatableTextObjectType;
-  };
+  }[];
   useDefaultRules: boolean;
+  valorCaucao?: number;
   defaultRules: {
     _createdAt: string; // ISO date string
     _id: "propertySettings";
@@ -76,7 +81,7 @@ export type RulesType = {
     otherRules: {
       title: translatableTextObjectType;
       description: translatableTextObjectType;
-    };
+    }[];
     petsAllowed: boolean;
     smokingAllowed: boolean;
     // Rules and text
@@ -132,7 +137,6 @@ export type PropertyQueryResult = {
   // Prices
   basePrice?: number;
   fromPrice?: number;
-  valorCaucao?: number;
   pricingTable?: {
     _key: string;
     startDate: string;
@@ -205,9 +209,6 @@ export const PROPERTY_QUERY = defineQuery(`*[
   active,
   basePrice,
   bedrooms,
-  checkinHour,
-  checkoutEnd,
-  checkoutStart,
   childrenWelcome,
   doubleBeds,
   exclusive,
@@ -267,6 +268,18 @@ export const PROPERTY_QUERY = defineQuery(`*[
     ...
   },
   useDefaultRules,
-  "defaultRules": *[_type == "propertySettings"][0]
+  "defaultRules": *[_type == "propertySettings"][0],
+  checkInGreenTime {
+    ${translatableTextObject}
+  },
+  checkInOrangeTime {
+    ${translatableTextObject}
+  },
+  checkInRedTime {
+    ${translatableTextObject}
+  },
+  checkOutTime {
+    ${translatableTextObject}
+  }
 }
 `);
