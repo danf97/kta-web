@@ -345,6 +345,14 @@ const mainStrings = {
     en: "Deposit",
     pt: "Caução",
   },
+  "Entre em contacto": {
+    en: "Get in touch",
+    pt: "Entre em contacto",
+  },
+  "contact message": {
+    en: "If you have any questions about the property, feel free to reach out to us.",
+    pt: "Se tiver alguma dúvida sobre a propriedade, não hesite em contactar-nos.",
+  },
 } as const;
 
 type MainStringsType = typeof mainStrings;

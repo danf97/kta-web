@@ -172,7 +172,7 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
         </div>
       </div>
 
-      <div className="h-[76px] border-b border-black flex items-center justify-center sticky top-0 z-[1] bg-sand">
+      <div className="h-[76px] border-b border-black flex items-center justify-center sticky top-0 z-[2] bg-sand">
         <Row>
           <Col className="w-full">
             <nav>
@@ -279,6 +279,41 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
 
           <div className={spaceStyles} id="important-details">
             <PropertyImportantDetails rules={rules} lang={lang} />
+          </div>
+        </Col>
+
+        <Col className="w-5/12 pl-8 sticky top-[76px] self-start py-12">
+          <div className="border border-black rounded-3xl p-8 bg-sand-light">
+            <h2 className="body-xl mb-6">
+              {mainStringsResolver("Entre em contacto", lang)}
+            </h2>
+            <p>{mainStringsResolver("contact message", lang)}</p>
+            <div className="flex flex-wrap gap-3 mt-6">
+              <Button
+                type="primary"
+                label={"WhatsApp"}
+                size="medium"
+                onClick={() => {
+                  window.open("https://wa.me/351966367564", "_blank");
+                }}
+              />
+              <Button
+                type="primary"
+                label={"+351 966 367 564"}
+                size="medium"
+                onClick={() => {
+                  window.open("tel:00351966367564", "_blank");
+                }}
+              />
+              <Button
+                type="primary"
+                label={"info@keystoalgarve.com"}
+                size="medium"
+                onClick={() => {
+                  window.open("mailto:info@keystoalgarve.com", "_blank");
+                }}
+              />
+            </div>
           </div>
         </Col>
       </Row>
