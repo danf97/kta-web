@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Row } from "@/components/ui/Row";
 import { Col } from "@/components/ui/Col";
@@ -12,6 +12,8 @@ import PropertyPhotos from "../PropertyPhotos";
 import PropertyFacilities from "../PropertyFacilities";
 import PropertyLocation from "../PropertyLocation";
 import PropertyImportantDetails from "../PropertyImportantDetails";
+import { Button } from "@/components/ui/Button";
+import { mainStringsResolver } from "@/libs/mainStrings";
 
 const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
   const {
@@ -86,9 +88,65 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
     setPhotoSliderIsOpen((prev) => !prev);
   };
 
+  const [activeSection, setActiveSection] = useState("");
+
+  const activeSectionHandler = (section: string) => {
+    setActiveSection(section);
+    const sectionElement = document.getElementById(section);
+    const sectionElementTop = (sectionElement?.offsetTop || 0) - (76 + 48);
+    if (sectionElement) {
+      window.scrollTo({
+        top: sectionElementTop,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  // Track scroll to change active section
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 76 + 48 + 1; // +1 to avoid edge case
+
+      const sections = [
+        "start",
+        "overview",
+        "photos",
+        "facilities",
+        "location",
+        "important-details",
+      ];
+
+      let currentSection = "";
+
+      for (let i = 0; i < sections.length; i++) {
+        const section = sections[i];
+        const sectionElement = document.getElementById(section);
+        if (sectionElement) {
+          const sectionTop = sectionElement.offsetTop;
+          if (scrollPosition >= sectionTop) {
+            currentSection = section;
+          }
+        }
+      }
+
+      if (currentSection !== activeSection) {
+        setActiveSection(currentSection);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <div className="bg-sand z-[1] relative">
-      <div className="relative h-[calc(100vh-76px)] border-b border-black overflow-hidden w-full">
+      <div
+        id="start"
+        className="relative h-[calc(100vh-76px)] border-b border-black overflow-hidden w-full"
+      >
         <div className="absolute top-0 left-0 leading-0 w-[calc(100vw+4px)] h-full pointer-events-none z-[-1]">
           {mainImage?.url ? (
             <Image
@@ -118,24 +176,48 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
         <Row>
           <Col className="w-full">
             <nav>
-              <ul className="flex gap-4">
+              <ul className="flex">
                 <li>
-                  <a href="#">Link 1</a>
+                  <Button
+                    type="ghost"
+                    label={mainStringsResolver("Overview", lang)}
+                    state={activeSection === "overview" ? "active" : "idle"}
+                    onClick={() => activeSectionHandler("overview")}
+                  />
                 </li>
                 <li>
-                  <a href="#">Link 2</a>
+                  <Button
+                    type="ghost"
+                    label={mainStringsResolver("Photos", lang)}
+                    state={activeSection === "photos" ? "active" : "idle"}
+                    onClick={() => activeSectionHandler("photos")}
+                  />
                 </li>
                 <li>
-                  <a href="#">Link 3</a>
+                  <Button
+                    type="ghost"
+                    label={mainStringsResolver("facilities", lang)}
+                    state={activeSection === "facilities" ? "active" : "idle"}
+                    onClick={() => activeSectionHandler("facilities")}
+                  />
                 </li>
                 <li>
-                  <a href="#">Link 3</a>
+                  <Button
+                    type="ghost"
+                    label={mainStringsResolver("location", lang)}
+                    state={activeSection === "location" ? "active" : "idle"}
+                    onClick={() => activeSectionHandler("location")}
+                  />
                 </li>
                 <li>
-                  <a href="#">Link 3</a>
-                </li>
-                <li>
-                  <a href="#">Link 3</a>
+                  <Button
+                    type="ghost"
+                    label={mainStringsResolver("Important Details", lang)}
+                    state={
+                      activeSection === "important-details" ? "active" : "idle"
+                    }
+                    onClick={() => activeSectionHandler("important-details")}
+                  />
                 </li>
               </ul>
             </nav>
@@ -145,7 +227,7 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
 
       <Row>
         <Col className="w-7/12">
-          <div className={spaceStyles}>
+          <div className={spaceStyles} id="overview">
             <PropertyIconSummary
               maxGuests={maxGuests}
               wc={wc}
@@ -156,6 +238,7 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
               lang={lang}
             />
           </div>
+
           <div className={spaceStyles}>
             <PropertyDescription
               mainDescription={mainDescription}
@@ -167,7 +250,7 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
 
           <PropertyHr />
 
-          <div className={spaceStyles}>
+          <div className={spaceStyles} id="photos">
             <PropertyPhotos
               photos={photos}
               lang={lang}
@@ -178,7 +261,7 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
 
           <PropertyHr />
 
-          <div className={spaceStyles}>
+          <div className={spaceStyles} id="facilities">
             <PropertyFacilities
               mainFacilities={mainFacilities}
               facilities={facilities}
@@ -188,13 +271,13 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
 
           <PropertyHr />
 
-          <div className={spaceStyles}>
+          <div className={spaceStyles} id="location">
             <PropertyLocation map={map} closeBy={closeBy} lang={lang} />
           </div>
 
           <PropertyHr />
 
-          <div className={spaceStyles}>
+          <div className={spaceStyles} id="important-details">
             <PropertyImportantDetails rules={rules} lang={lang} />
           </div>
         </Col>

@@ -198,6 +198,10 @@ const categories = {
 
 const mainStrings = {
   // Property
+  Overview: {
+    en: "Overview",
+    pt: "Visão Geral",
+  },
   people: {
     en: "people",
     pt: "pessoas",

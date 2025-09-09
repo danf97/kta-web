@@ -75,7 +75,7 @@ const PropertyPhotos = ({
   return (
     <div className="flex flex-col">
       <div className="flex items-center justify-between mb-12">
-        <h2 className="body-l"> {mainStringsResolver("Photos", lang)}</h2>
+        <h2 className="body-l">{mainStringsResolver("Photos", lang)}</h2>
 
         <Button type="secondary" label="See all" onClick={togglePhotoSlider} />
       </div>

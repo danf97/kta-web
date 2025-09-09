@@ -3060,11 +3060,6 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
-react-anchor-navigation@^0.2.7:
-  version "0.2.7"
-  resolved "https://registry.yarnpkg.com/react-anchor-navigation/-/react-anchor-navigation-0.2.7.tgz#70fbe7580e1ca74ea2dc91bdfaae9e905ea7124f"
-  integrity sha512-4wMYr0e9fwVFwHynDXH3OgSQbMP6FNpmXY/wkEpXs02meS07h3U4XFStsE2IzCBD4KapehxDn5ajFrCUCB9eww==
-
 react-compiler-runtime@19.1.0-rc.2:
   version "19.1.0-rc.2"
   resolved "https://registry.yarnpkg.com/react-compiler-runtime/-/react-compiler-runtime-19.1.0-rc.2.tgz#6fc2ab85bf76138f9458b5c2050728d34cb7740f"
