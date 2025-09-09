@@ -1,53 +1,53 @@
-import { defineQuery } from 'next-sanity'
+import { defineQuery } from "next-sanity";
 import {
   linkGlobalObject,
   LinkGlobalObjectQueryResult,
-} from '../objects/linkGlobalObject'
+} from "../objects/linkGlobalObject";
 import {
   linkGroupObject,
   linkGroupObjectQueryResult,
-} from '../objects/linkGroupObject'
-import { sectionsQuery, sectionsQueryResult } from '../sections'
+} from "../objects/linkGroupObject";
+import { sectionsQuery, sectionsQueryResult } from "../sections";
 
 export type NavItem =
   | ({
-      _type: 'linkGroup'
+      _type: "linkGroup";
     } & linkGroupObjectQueryResult)
   | ({
-      _type: 'linkGlobal'
-    } & LinkGlobalObjectQueryResult)
+      _type: "linkGlobal";
+    } & LinkGlobalObjectQueryResult);
 
 export type SettingsQueryResult = {
   meta: {
-    lang: string
-  }
-  title: string
+    lang: string;
+  };
+  title: string;
   logo: {
-    url: string
-  }
+    url: string;
+  };
   header: {
-    navigation: NavItem[]
-  }
+    navigation: NavItem[];
+  };
   footer: {
-    heading: string
-    copy: string
-    navigation: NavItem[]
-  }
+    heading: string;
+    copy: string;
+    navigation: NavItem[];
+  };
   legal: {
-    legalNav: NavItem[]
-  }
+    legalNav: NavItem[];
+  };
   seo: {
-    title: string
-    description: string
+    title: string;
+    description: string;
     image: {
-      url: string
-    }
-  }
-  product_sections: sectionsQueryResult
-}
+      url: string;
+    };
+  };
+  product_sections: sectionsQueryResult;
+};
 
 export const SETTINGS_QUERY = defineQuery(`*[
-  _type == "settings"
+  _type == "settings" && _id == $slug
 ][0]{
    "meta": {
     "lang": lang
@@ -98,4 +98,4 @@ export const SETTINGS_QUERY = defineQuery(`*[
     ${sectionsQuery}
   }
 }
-`)
+`);

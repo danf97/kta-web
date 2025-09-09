@@ -9,6 +9,9 @@ import PropertyIconSummary from "../PropertyIconSummary";
 import PropertyDescription from "../PropertyDescription";
 import PropertyHr from "../PropertyHr";
 import PropertyPhotos from "../PropertyPhotos";
+import PropertyFacilities from "../PropertyFacilities";
+import PropertyLocation from "../PropertyLocation";
+import PropertyImportantDetails from "../PropertyImportantDetails";
 
 const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
   const {
@@ -31,7 +34,39 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
     license,
     // Photos
     photos,
+    // Facilities
+    mainFacilities,
+    facilities,
+    // Location
+    map,
+    closeBy,
+    // Rules
+    checkinHour,
+    checkoutEnd,
+    checkoutStart,
+    childrenWelcome,
+    holdParties,
+    otherRules,
+    petsAllowed,
+    smokingAllowed,
+    useDefaultRules,
+    defaultRules,
   } = property;
+
+  const rules = {
+    checkinHour,
+    checkoutEnd,
+    checkoutStart,
+    childrenWelcome,
+    holdParties,
+    otherRules,
+    petsAllowed,
+    smokingAllowed,
+    useDefaultRules,
+    defaultRules,
+  };
+
+  console.log({ property });
 
   const spaceStyles = `my-12`;
 
@@ -129,6 +164,28 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
               photoSliderIsOpen={photoSliderIsOpen}
               togglePhotoSlider={togglePhotoSlider}
             />
+          </div>
+
+          <PropertyHr />
+
+          <div className={spaceStyles}>
+            <PropertyFacilities
+              mainFacilities={mainFacilities}
+              facilities={facilities}
+              lang={lang}
+            />
+          </div>
+
+          <PropertyHr />
+
+          <div className={spaceStyles}>
+            <PropertyLocation map={map} closeBy={closeBy} lang={lang} />
+          </div>
+
+          <PropertyHr />
+
+          <div className={spaceStyles}>
+            <PropertyImportantDetails rules={rules} lang={lang} />
           </div>
         </Col>
       </Row>

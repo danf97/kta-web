@@ -7,6 +7,95 @@ import {
   translatableTextObjectType,
 } from "../objects/translatableTextObject";
 
+export type Amenities = {
+  pool?: boolean;
+  golf?: boolean;
+  jacuzzi?: boolean;
+  gym?: boolean;
+  parking?: boolean;
+  wifi?: boolean;
+  airConditioning?: boolean;
+  tv?: boolean;
+  washingMachine?: boolean;
+  garden?: boolean;
+  beachfront?: boolean;
+  seaView?: boolean;
+  privatePool?: boolean;
+  swimmingPool?: boolean;
+  garage?: boolean;
+  parkingSpace?: boolean;
+  dishwasher?: boolean;
+  bbq?: boolean;
+  outdoorDining?: boolean;
+  outdoorFurniture?: boolean;
+  balcony?: boolean;
+  terrace?: boolean;
+  heater?: boolean;
+  fireplace?: boolean;
+  elevator?: boolean;
+  securitySystem?: boolean;
+  smartTv?: boolean;
+  coffeeMaker?: boolean;
+  microwave?: boolean;
+  oven?: boolean;
+  fridge?: boolean;
+  freezer?: boolean;
+  hairDryer?: boolean;
+  iron?: boolean;
+  clothesDryer?: boolean;
+  workspace?: boolean;
+  babyEquipment?: boolean;
+  bicycles?: boolean;
+  beachEquipment?: boolean;
+  soundSystem?: boolean;
+};
+
+export type RulesType = {
+  childrenWelcome: boolean;
+  petsAllowed: boolean;
+  smokingAllowed: boolean;
+  holdParties: boolean;
+  otherRules: {
+    title: translatableTextObjectType;
+    description: translatableTextObjectType;
+  };
+  useDefaultRules: boolean;
+  defaultRules: {
+    _createdAt: string; // ISO date string
+    _id: "propertySettings";
+    _rev: string;
+    id: "propertySettings";
+    rev: string;
+    _type: "propertySettings";
+    _updatedAt: string; // ISO date string
+    checkinHour: number;
+    checkoutEnd: number;
+    checkoutStart: number;
+    childrenWelcome: boolean;
+    holdParties: boolean;
+    otherRules: {
+      title: translatableTextObjectType;
+      description: translatableTextObjectType;
+    };
+    petsAllowed: boolean;
+    smokingAllowed: boolean;
+    // Rules and text
+    cancellationGreenText: translatableTextObjectType;
+    cancellationOrangeText: translatableTextObjectType;
+    cancellationRedText: translatableTextObjectType;
+    cancellationSmallText: translatableTextObjectType;
+    checkInGreenTime: translatableTextObjectType;
+    checkInOrangeTime: translatableTextObjectType;
+    checkInOrangeValue: number;
+    checkInRedTime: translatableTextObjectType;
+    checkInRedValue: number;
+    checkInText: translatableTextObjectType;
+    checkOutText: translatableTextObjectType;
+    checkOutTime: translatableTextObjectType;
+    depositText: translatableTextObjectType;
+  };
+};
+
 export type PropertyQueryResult = {
   meta: {
     slug: string;
@@ -39,10 +128,6 @@ export type PropertyQueryResult = {
   doubleBeds: number;
   singleBeds: number;
   sofaBeds: number;
-  childrenWelcome: boolean;
-  petsAllowed: boolean;
-  smokingAllowed: boolean;
-  holdParties: boolean;
 
   // Prices
   basePrice?: number;
@@ -80,6 +165,20 @@ export type PropertyQueryResult = {
     featureType: string;
     smallTitle?: translatableTextObjectType;
   }[];
+  facilities?: {
+    _key: string;
+    area: string;
+    items: {
+      _key: string;
+    } & Amenities;
+  }[];
+
+  // Location
+  map: string;
+  closeBy?: {
+    title: translatableTextObjectType;
+    distance: string;
+  }[];
 
   // Images
   mainImage?: ImageObjectType;
@@ -89,7 +188,9 @@ export type PropertyQueryResult = {
   checkinHour?: number;
   checkoutStart?: number;
   checkoutEnd?: number;
-};
+
+  // Rules
+} & RulesType;
 
 export const PROPERTY_QUERY = defineQuery(`*[
  _type == "property" && slug.current == $slug
@@ -123,8 +224,11 @@ export const PROPERTY_QUERY = defineQuery(`*[
     _key,
     featureType,
     smallTitle {
-    ${translatableTextObject}
+      ${translatableTextObject}
+    },
   },
+  facilities[]{
+    ...
   },
   mainFeature,
   mainImage{
@@ -154,6 +258,15 @@ export const PROPERTY_QUERY = defineQuery(`*[
   title,
   valorCaucao,
   visible,
-  wc
+  wc,
+  map,
+  closeBy[] {
+    ...
+  },
+  otherRules[] {
+    ...
+  },
+  useDefaultRules,
+  "defaultRules": *[_type == "propertySettings"][0]
 }
 `);

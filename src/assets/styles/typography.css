@@ -98,6 +98,13 @@
     font-style: normal;
     font-weight: 400;
   }
+  .body-16-bold {
+    font-family: var(--font-nexa-util);
+    font-size: 16px;
+    line-height: 120%;
+    font-style: normal;
+    font-weight: 700;
+  }
   .body-s {
     font-family: var(--font-nexa-util);
     font-size: 18px;

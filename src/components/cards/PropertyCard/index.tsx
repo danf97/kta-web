@@ -87,7 +87,7 @@ const PropertyCard = ({ property }: { property: PropertyCardType }) => {
               {maxGuests} guests &#x2022; {bedrooms} bedrooms &#x2022; {wc} wc
             </p>
             <ul className="body-xs flex flex-wrap" ref={bulletsRef}>
-              {mainFacilities.map((facility, index) => (
+              {mainFacilities.slice(0, 6).map((facility, index) => (
                 <li key={index} className="inline-block pb-1">
                   {facility.featureType}
                   {index === mainFacilities.length - 1 ? (

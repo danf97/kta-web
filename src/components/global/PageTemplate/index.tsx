@@ -44,8 +44,6 @@ const PageTemplate = ({
       </Row>
 
       {children}
-
-      <Footer />
     </div>
   );
 };

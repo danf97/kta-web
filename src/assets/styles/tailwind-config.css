@@ -13,6 +13,9 @@
 
   --color-gray: #4f4e4e;
 
+  --color-accent-green: #2ecc71;
+  --color-accent-orange: #fdb230;
+  --color-accent-red: #ff0a0a;
   /* Typography */
   --font-sans: "Nexa", sans-serif;
 
