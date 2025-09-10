@@ -170,13 +170,14 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
         </div>
       </div>
 
-      <div className="h-[76px] border-b border-black flex items-center justify-center sticky top-0 z-[2] bg-sand">
+      <div className="h-[76px] border-b border-black flex items-center justify-center sticky top-0 z-[2] bg-sand overflow-auto">
         <Row>
           <Col className="w-full">
             <nav>
               <ul className="flex">
                 <li>
                   <Button
+                    className="w-max"
                     type="ghost"
                     label={mainStringsResolver("Overview", lang)}
                     state={activeSection === "overview" ? "active" : "idle"}
@@ -185,6 +186,7 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
                 </li>
                 <li>
                   <Button
+                    className="w-max"
                     type="ghost"
                     label={mainStringsResolver("Photos", lang)}
                     state={activeSection === "photos" ? "active" : "idle"}
@@ -193,6 +195,7 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
                 </li>
                 <li>
                   <Button
+                    className="w-max"
                     type="ghost"
                     label={mainStringsResolver("facilities", lang)}
                     state={activeSection === "facilities" ? "active" : "idle"}
@@ -201,6 +204,7 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
                 </li>
                 <li>
                   <Button
+                    className="w-max"
                     type="ghost"
                     label={mainStringsResolver("location", lang)}
                     state={activeSection === "location" ? "active" : "idle"}
@@ -209,6 +213,7 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
                 </li>
                 <li>
                   <Button
+                    className="w-max"
                     type="ghost"
                     label={mainStringsResolver("Important Details", lang)}
                     state={
@@ -224,7 +229,7 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
       </div>
 
       <Row>
-        <Col className="w-7/12">
+        <Col className="w-full smallDesktop:w-7/12">
           <div className={spaceStyles} id="overview">
             <PropertyIconSummary
               maxGuests={maxGuests}
@@ -280,8 +285,8 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
           </div>
         </Col>
 
-        <Col className="w-5/12 pl-8 sticky top-[76px] self-start py-12">
-          <div className="border border-black rounded-3xl p-6 bg-sand-light">
+        <Col className="w-full pb-12 smallDesktop:w-5/12 smallDesktop:pl-8 sticky top-[76px] self-start smallDesktop:py-12">
+          <div className="border border-black rounded-3xl p-8 bg-sand-light">
             <h2 className="body-xl mb-6">
               {mainStringsResolver("Entre em contacto", lang)}
             </h2>

@@ -68,7 +68,7 @@ const PropertyFacilities = ({
       </div>
 
       <div>
-        <ul className="grid grid-cols-2 gap-4">
+        <ul className="grid grid-cols-1 tablet:grid-cols-2 gap-4">
           {mainFacilities?.map((facility) => (
             <li
               key={facility._key}
@@ -84,7 +84,7 @@ const PropertyFacilities = ({
       </div>
 
       <div>
-        <ul className="grid grid-cols-2 gap-4 mt-10">
+        <ul className="grid grid-cols-1 tablet:grid-cols-2 gap-4 mt-10">
           {facilities?.map((facility) => (
             <li key={facility._key} className="flex flex-col gap-4 mb-2">
               <p className="body-16">

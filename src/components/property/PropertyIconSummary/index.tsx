@@ -23,7 +23,7 @@ const PropertyIconSummary = ({
   sofaBeds: number;
   lang?: string;
 }) => {
-  const itemsStyles = "flex flex-col justify-end items-center mr-4 p-2 gap-3";
+  const itemsStyles = "flex flex-col justify-end items-center m-1 p-2 gap-3";
 
   return (
     <div className="border border-black rounded-3xl p-4 w-full bg-sand-light">

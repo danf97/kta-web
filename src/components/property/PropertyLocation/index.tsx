@@ -30,14 +30,14 @@ const PropertyLocation = ({
         />
       </div>
 
-      <ul className="relative columns-2 gap-x-10 mt-8">
+      <ul className="relative tablet:columns-2 gap-x-10 mt-8">
         {closeBy?.map((place, index) => (
           <li key={index} className="flex justify-between mb-2">
             <p>{multilangFieldResolver(place.title, lang)}</p>
             <p>{place.distance}</p>
           </li>
         ))}
-        <span className="h-full absolute w-0 left-1/2 top-0 border-l border-black" />
+        <span className="h-full absolute w-0 left-1/2 top-0 border-l border-black hidden tablet:block" />
       </ul>
     </div>
   );

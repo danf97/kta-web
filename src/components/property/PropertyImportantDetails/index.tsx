@@ -30,7 +30,7 @@ const PropertyImportantDetails = ({
         </h2>
       </div>
 
-      <div className="grid grid-cols-2 gap-x-10 gap-y-15">
+      <div className="grid grid-cols-1 tablet:grid-cols-2 smallDesktop:grid-cols-1 desktop:grid-cols-2 gap-x-10 gap-y-15">
         <div className="">
           <h3 className="body-16-bold mb-4">Check-in</h3>
 
