@@ -25,7 +25,7 @@ export const sanityLinkResolver = (
   } else if (link.linkType === "action") {
     if (link.action === "open_cookie_preferences") {
       return {
-        // @ts-ignore
+        // @ts-expect-error
         onClick: (e: any) => actionResolvers.open_cookie_preferences(true),
       };
     } else if (link.action === "open_bag") {

@@ -24,7 +24,7 @@ export const HOME_PAGE_QUERY = defineQuery(`*[
       "slug": "home",
       "lang": lang
     },
-    ${pageHeadObject}
+    ${pageHeadObject},
     ${seoObject},
     ${sectionsQuery},
     ${pageSettingsObject},

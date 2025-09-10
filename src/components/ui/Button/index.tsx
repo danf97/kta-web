@@ -94,6 +94,8 @@ export const Button = ({
       ? sanityLinkResolver(link, actionResolvers)
       : null;
 
+  console.log("LinkData:", link, LinkData);
+
   const hasUrl = LinkData && "url" in LinkData && LinkData.url !== null;
   const classNames = cleanClassName(
     `
@@ -136,7 +138,8 @@ export const Button = ({
 
   return hasUrl || href ? (
     <Link
-      href={"#"}
+      href={LinkData?.url || href || "#"}
+      target={LinkData?.target || "_self"}
       className={classNames}
       role="button"
       onClick={onClickHandler}

@@ -49,7 +49,7 @@ const internalLinkResolver = groq`
     _type == "page" => {
       lang,
       "slug": slug.current,
-      "url": "/page/" + slug.current,
+      "url": "/" + slug.current,
       ...
     },
     _type == "policyDocument" => {
