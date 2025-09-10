@@ -1,6 +1,5 @@
 import { groq } from "next-sanity";
 
-import { quoteSection, QuoteSectionQueryResult } from "./quote";
 import {
   cardsSliderSection,
   cardsSliderSectionQueryResult,
@@ -10,6 +9,7 @@ import {
   featuredCardsSection,
 } from "./featured-cards";
 import { BannerQueryResult, bannerSection } from "./banner";
+import { cardsListSection, cardsListSectionQueryResult } from "./cards-list";
 
 export type SectionType<T> = {
   _type: string;
@@ -17,9 +17,9 @@ export type SectionType<T> = {
 } & T;
 
 export type sectionsQueryResult = SectionType<
-  | QuoteSectionQueryResult
-  | cardsSliderSectionQueryResult
   | BannerQueryResult
+  | cardsSliderSectionQueryResult
+  | cardsListSectionQueryResult
   | featuredCardsQueryResult
 >;
 
@@ -27,9 +27,9 @@ export const sectionsQuery = groq`
   sections[] {
     _type,
     _key,
-    ${quoteSection},
-    ${cardsSliderSection},
+    ${bannerSection},
+    ${cardsListSection},
     ${featuredCardsSection},
-    ${bannerSection}
+    ${cardsSliderSection}
   }
 `;

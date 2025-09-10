@@ -5,7 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 
-const PropertyCard = ({ property }: { property: PropertyCardType }) => {
+const PropertyCard = ({
+  property,
+  width = "card",
+}: {
+  property: PropertyCardType;
+  width?: "full" | "card";
+}) => {
   const {
     title,
     mainImage,
@@ -19,7 +25,7 @@ const PropertyCard = ({ property }: { property: PropertyCardType }) => {
     propertyType,
   } = property;
 
-  const fromPriceMoney = fromPrice.toLocaleString("pt-PT", {
+  const fromPriceMoney = fromPrice?.toLocaleString("pt-PT", {
     style: "currency",
     currency: "EUR",
     maximumFractionDigits: 0,
@@ -34,7 +40,7 @@ const PropertyCard = ({ property }: { property: PropertyCardType }) => {
       let lastTopHeight: number | null = null;
       let lastItem: Element | null = null;
 
-      Array.from(listItems).forEach((item, index) => {
+      Array.from(listItems).forEach((item) => {
         const itemTop = item.getBoundingClientRect().top;
 
         if (lastTopHeight === null) {
@@ -64,18 +70,21 @@ const PropertyCard = ({ property }: { property: PropertyCardType }) => {
   return (
     <Link
       href={`/properties/${slug.current}`}
-      className="bg-sand-light block w-[298px] border border-black rounded-3xl overflow-hidden hover:bg-sand-dark"
+      className={`flex bg-sand-light border border-black rounded-3xl overflow-hidden hover:bg-sand-dark
+        ${width === "full" ? "w-full" : "w-[298px]"}
+      `}
+      target="_blank"
     >
-      <div className="flex flex-col">
+      <div className="flex flex-col w-full">
         <Image
           src={mainImage.url}
           alt={title}
-          width={298}
-          height={194}
-          className="rounded-b-3xl object-cover border-b border-black"
+          width={310}
+          height={208}
+          className="rounded-b-3xl object-cover border-b border-black w-full"
         />
 
-        <div className="p-5 gap-6 flex flex-col">
+        <div className="p-5 gap-6 flex flex-col flex-1">
           <div>
             <p className="card-caps pb-2">
               {propertyLocation} &#x2022; {propertyType}
@@ -87,7 +96,7 @@ const PropertyCard = ({ property }: { property: PropertyCardType }) => {
               {maxGuests} guests &#x2022; {bedrooms} bedrooms &#x2022; {wc} wc
             </p>
             <ul className="body-xs flex flex-wrap" ref={bulletsRef}>
-              {mainFacilities.slice(0, 6).map((facility, index) => (
+              {mainFacilities?.slice(0, 6).map((facility, index) => (
                 <li key={index} className="inline-block pb-1">
                   {facility.featureType}
                   {index === mainFacilities.length - 1 ? (
@@ -100,7 +109,7 @@ const PropertyCard = ({ property }: { property: PropertyCardType }) => {
             </ul>
           </div>
 
-          <div>
+          <div className="mt-auto">
             <p className="card-caps pb-2">Starting from</p>
             <p className="body-l">
               {fromPriceMoney}
