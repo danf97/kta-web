@@ -28,7 +28,10 @@ const CardsSlider = ({
   });
 
   return (
-    <div key={section._key || index} className="cards-slider vertical-space">
+    <div
+      key={section._key || index}
+      className="cards-slider vertical-space max-w-screen overflow-hidden"
+    >
       <Swiper
         spaceBetween={22}
         // slidesPerView={3}
@@ -38,6 +41,7 @@ const CardsSlider = ({
         }}
         centeredSlides={section.layout === "centered"}
         slidesPerView={"auto"}
+        className="max-w-screen overflow-hidden"
       >
         {section.cards.map((card, cardIndex) => (
           <SwiperSlide key={card._key || cardIndex} className="!w-fit">

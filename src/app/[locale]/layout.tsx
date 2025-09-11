@@ -6,6 +6,7 @@ import { Providers } from "../providers";
 
 import "../../assets/styles/tailwind-config.css";
 import "../../assets/styles/globals.scss";
+import CookieBanner from "@/components/global/CookieBanner";
 
 export default async function RootLayout({
   children,
@@ -25,6 +26,7 @@ export default async function RootLayout({
           <>
             <Header settings={settings} />
             {children}
+            <CookieBanner localeData={{ lang: locale }} />
             <Footer settings={settings} />
           </>
         </Providers>

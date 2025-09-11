@@ -2,6 +2,7 @@
 
 import React from "react";
 import { AppProvider } from "./context/AppContext";
+import { CookiesProvider } from "./context/CookiesContext";
 
 type ProvidersProps = {
   locale: string;
@@ -9,5 +10,9 @@ type ProvidersProps = {
 };
 
 export const Providers = ({ locale, children }: ProvidersProps) => {
-  return <AppProvider locale={locale}>{children}</AppProvider>;
+  return (
+    <AppProvider locale={locale}>
+      <CookiesProvider>{children}</CookiesProvider>
+    </AppProvider>
+  );
 };

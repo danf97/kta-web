@@ -17,7 +17,10 @@ const Banner = ({
   const { title, message, cta, image } = section;
 
   return (
-    <div key={section._key || index} className="vertical-space">
+    <div
+      key={section._key || index}
+      className="vertical-space overflow-hidden max-w-screen"
+    >
       <div className="w-full background-pattern-orange border-t border-b">
         <Row>
           <Col className="w-6/12">
