@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { createContext, useState } from "react";
 
 import { usePathname, useRouter } from "next/navigation";
+import { setCookie } from "cookies-next";
 
 export type AppContextTypes = {
   isHome: boolean;
@@ -52,9 +53,14 @@ export const AppProvider = ({ children, locale }: AppProviderProps) => {
    *   Locale Handler
    */
 
+  useEffect(() => {
+    setCookie("locale", locale);
+  }, [locale]);
+
   const availableLocales = process.env.NEXT_PUBLIC_LOCALES!.split(",");
 
   const handleLocale = (newLocale: string) => {
+    setCookie("locale", newLocale);
     const newPath = pathname.replace(locale, newLocale);
 
     router.push(newPath);

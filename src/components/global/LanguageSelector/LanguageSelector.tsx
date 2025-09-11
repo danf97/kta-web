@@ -2,7 +2,7 @@
 
 import { AppContext } from "@/app/context/AppContext";
 import { LanguageIcon } from "@heroicons/react/24/outline";
-import { setCookie } from "cookies-next";
+
 import React, { useContext } from "react";
 
 const LanguageSelector = ({ className }: { className?: string }) => {
@@ -11,7 +11,6 @@ const LanguageSelector = ({ className }: { className?: string }) => {
   const locales = availableLocales;
 
   const handleSelectLanguage = (lang: string) => {
-    setCookie("locale", lang);
     handleLocale(lang);
   };
 

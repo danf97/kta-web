@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 
 export async function middleware(request: NextRequest) {
   const cookieStore = await cookies();
-  console.log("[middleware] request");
   const { pathname } = request.nextUrl;
   let redirectTo = false;
 
@@ -21,7 +20,6 @@ export async function middleware(request: NextRequest) {
     : locale?.value.toLowerCase() ||
       process.env.NEXT_PUBLIC_DEFAULT_LOCALE!.toLowerCase();
   console.log("[middleware] resolved language", lang);
-  cookieStore.set("locale", lang);
 
   if (!pathnameCurrentLocale) {
     return NextResponse.redirect(new URL(`/${lang}/${pathname}`, request.url));
