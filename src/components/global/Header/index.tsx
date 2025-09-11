@@ -7,6 +7,7 @@ import { LogoKta } from "@/components/icons/LogoKta";
 import { Button } from "@/components/ui/Button";
 import { Col } from "@/components/ui/Col";
 import { Row } from "@/components/ui/Row";
+import LanguageSelector from "../LanguageSelector/LanguageSelector";
 
 const Header = ({ settings }: { settings: SettingsQueryResult }) => {
   const { header } = settings;
@@ -106,6 +107,10 @@ const Header = ({ settings }: { settings: SettingsQueryResult }) => {
               })
             : null}
         </ul>
+
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
+          <LanguageSelector />
+        </div>
       </nav>
     </header>
   );

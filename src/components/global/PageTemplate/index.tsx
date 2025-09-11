@@ -23,20 +23,20 @@ const PageTemplate = ({
       ) : null}
 
       <Row className="justify-center pt-56">
-        <Col className="tablet:w-7/12 desktop:w-7/12 flex flex-col gap-10 items-center">
-          <h1 className="h2 text-center">{pageHead.title}</h1>
+        <Col className="w-full tablet:w-7/12 desktop:w-7/12 flex flex-col gap-10 items-center">
+          <h1 className="h3 tablet:h2 text-center">{pageHead.title}</h1>
           {pageHead.description !== null ? (
             <p className="body-m text-center">{pageHead.description}</p>
           ) : null}
-          {pageHead.cta !== null ? (
+          {pageHead.cta &&
+          pageHead?.cta?.linkType !== null &&
+          pageHead?.cta?.linkType !== "disabled" ? (
             <div>
               <Button
                 type="primary"
                 size="medium"
-                onClick={() => {
-                  console.log("ola");
-                }}
-                label="See our properties"
+                link={pageHead.cta}
+                label={pageHead?.cta?.title}
               />
             </div>
           ) : null}

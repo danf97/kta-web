@@ -1,7 +1,13 @@
 import { groq } from "next-sanity";
 
 export type LinkGlobalObjectQueryResult = {
-  linkType: "internal" | "external" | "anchor" | "action" | "social";
+  linkType:
+    | "internal"
+    | "external"
+    | "anchor"
+    | "action"
+    | "social"
+    | "disabled";
   title: string;
   description: string;
 } & (
@@ -36,6 +42,9 @@ export type LinkGlobalObjectQueryResult = {
   | {
       linkType: "action";
       action: "open_cookie_preferences" | "open_bag" | "open_my_account";
+    }
+  | {
+      linkType: "disabled";
     }
 );
 

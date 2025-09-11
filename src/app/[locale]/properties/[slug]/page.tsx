@@ -4,10 +4,10 @@ import { getSanityProperty } from "@/sanity/services/getSanityProperty";
 export default async function Property({
   params,
 }: {
-  params: Promise<{ locale: string; uid: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { locale, uid } = await params;
-  const property = await getSanityProperty({ slug: uid, lang: locale });
+  const { locale, slug } = await params;
+  const property = await getSanityProperty({ slug, lang: locale });
 
   return <PropertyTemplate property={property} />;
 }

@@ -72,6 +72,8 @@ export const CookiesProvider = ({ children }: CookiesProviderProps) => {
   });
   const [scriptsLoaded, setScriptsLoaded] = useState(false);
 
+  console.log("showPreferences", showPreferences);
+
   // Initial data: check if user has already given consent
   useEffect(() => {
     setTimeout(() => {

@@ -28,8 +28,8 @@ const BigPropertyCard = ({
   return (
     <div className="mt-10" key={key}>
       <div
-        className={`flex flex-row min-h-[593px] z-[1] relative overflow-hidden rounded-3xl border border-black ${
-          align === "left" ? "" : "justify-end"
+        className={`flex flex-col tablet:flex-row tablet:min-h-[593px] z-[1] relative overflow-hidden rounded-3xl border border-black ${
+          align === "left" ? "" : "tablet:justify-end"
         }`}
       >
         <Image
@@ -37,11 +37,11 @@ const BigPropertyCard = ({
           alt={title}
           width={890}
           height={539}
-          className={`absolute z-[-1] w-[calc(66.66%+40px)] h-full object-cover top-0 ${
+          className={`-mb-10 tablet:mb-0 tablet:absolute z-[-1] w-full tablet:w-[calc(66.66%+40px)] h-full object-cover top-0 ${
             align === "left" ? "right-0" : "left-0"
           }`}
         />
-        <div className="bg-blue-light w-1/3 m-[-1px] rounded-3xl border border-black p-10 flex flex-col justify-between">
+        <div className="bg-blue-light w-[calc(100%+3px)] tablet:min-w-[380px] tablet:w-1/3 m-[-2px] rounded-3xl border border-black p-6 tablet:p-10 flex flex-col justify-between">
           <div>
             <p className="card-caps pb-2 body-xxs">
               {propertyLocation} &#x2022; {propertyType}
@@ -49,7 +49,7 @@ const BigPropertyCard = ({
             <h3 className="h2">{title}</h3>
           </div>
 
-          <div>
+          <div className="my-7">
             <p className="body-s">
               {multilangFieldResolver(mainDescription, lang)}
             </p>

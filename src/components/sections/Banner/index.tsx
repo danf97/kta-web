@@ -23,7 +23,7 @@ const Banner = ({
     >
       <div className="w-full background-pattern-orange border-t border-b">
         <Row>
-          <Col className="w-6/12">
+          <Col className="w-full tablet:w-6/12 order-2 tablet:order-1">
             <div className="flex flex-col justify-between min-h-[480px] p-10">
               <p className="body-m">{title}</p>
               <p className="h5">{message}</p>
@@ -34,14 +34,14 @@ const Banner = ({
           </Col>
 
           {image?.url ? (
-            <Col className="w-6/12">
+            <Col className="w-full tablet:w-6/12 order-1 tablet:order-2">
               <div className="relative w-full h-full">
                 <Image
                   src={image?.url}
                   alt={title}
                   width={1040}
                   height={480}
-                  className="absolute left-0 top-0 object-cover rounded-l-3xl border border-black m-[-1px] h-[calc(100%+2px)] min-w-[50vw]"
+                  className="tablet:absolute min-w-screen ml-[-24px] tablet:ml-0 left-0 top-0 object-cover tablet:rounded-l-3xl border-t border-b tablet:border-x border-black m-[-1px] h-[calc(100%+2px)] tablet:min-w-[50vw]"
                 />
               </div>
             </Col>

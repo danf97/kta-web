@@ -15,8 +15,8 @@ const Footer = ({ settings }: { settings: SettingsQueryResult }) => {
     <footer className="bg-sand-light text-black border-t border-black py-15">
       <Row>
         <Col className="w-full">
-          <div className="flex items-center justify-between">
-            <Link href="/">
+          <div className="flex tablet:items-start tablet:justify-between flex-col tablet:flex-row">
+            <Link href="/" className="mb-10">
               <LogoKta className="h-7 w-auto hover:opacity-60" />
             </Link>
 

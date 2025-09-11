@@ -28,7 +28,7 @@ const text = {
         Learn more about the cookies we use, and choose which cookies to allow.
         Check our{" "}
         <Link
-          href="/policies/privacy-policy"
+          href="https://drive.google.com/file/d/1y0XDf_45njS5kuQIqGvmU_5n5vhBfaw_/view"
           className="underline"
           target="_blank"
         >
@@ -70,7 +70,7 @@ const text = {
         Saiba mais sobre os cookies que usamos e escolha quais cookies permitir.
         Consulte a nossa{" "}
         <Link
-          href="/policies/privacy-policy"
+          href="https://drive.google.com/file/d/1y0XDf_45njS5kuQIqGvmU_5n5vhBfaw_/view"
           className="underline"
           target="_blank"
         >

@@ -37,7 +37,7 @@ const CardsSlider = ({
         // slidesPerView={3}
         // onSlideChange={() => {}}
         onSwiper={(swiper) => {
-          swiper.slideTo(2, 0, false);
+          if (window.innerWidth >= 768) swiper.slideTo(2, 0, false);
         }}
         centeredSlides={section.layout === "centered"}
         slidesPerView={"auto"}

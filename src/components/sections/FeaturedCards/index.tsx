@@ -21,10 +21,10 @@ const FeaturedCards = ({
   return (
     <div key={_key || index} className="featured-cards vertical-space">
       <Row>
-        <Col className="w-1/2">
+        <Col className="w-full tablet:w-1/2">
           <h2 className="h6">{title}</h2>
         </Col>
-        <Col className="w-1/2 text-right">
+        <Col className="hidden tablet:block tablet:w-1/2 text-center tablet:text-right">
           <Button type="primary" size="medium" label={cta.title} />
         </Col>
       </Row>
@@ -39,6 +39,10 @@ const FeaturedCards = ({
               lang={lang}
             />
           ))}
+        </Col>
+
+        <Col className="w-full mt-6 text-center tablet:hidden">
+          <Button type="primary" size="medium" label={cta.title} />
         </Col>
       </Row>
     </div>

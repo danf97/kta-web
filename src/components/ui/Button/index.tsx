@@ -6,6 +6,8 @@ import { sanityLinkResolver } from "@/sanity/lib/utils";
 import Link from "next/link";
 import { cleanClassName } from "@/utils/cleanClassName";
 import { useRouter } from "next/navigation";
+import { CookiesContext } from "@/app/context/CookiesContext";
+import { useContext } from "react";
 
 export type ButtonStyles = {
   primary: {
@@ -81,11 +83,12 @@ export const Button = ({
 }) => {
   const router = useRouter();
   // const { setPageLoading, handleMiniCart } = useContext(AppContext)
-  // const { setShowPreferences } = useContext(CookiesContext)
+  const { setShowPreferences } = useContext(CookiesContext);
 
   const actionResolvers = {
-    test: () => {
-      console.log("test");
+    open_cookie_preferences: () => {
+      console.log("Opening cookie preferences");
+      setShowPreferences(true);
     },
   };
 
@@ -93,6 +96,8 @@ export const Button = ({
     link && "linkType" in link
       ? sanityLinkResolver(link, actionResolvers)
       : null;
+
+  console.log({ LinkData, link });
 
   const hasUrl = LinkData && "url" in LinkData && LinkData.url !== null;
   const classNames = cleanClassName(
@@ -123,11 +128,16 @@ export const Button = ({
   );
 
   const onClickHandler = (e: any) => {
+    console.log("click", link);
     if (isLoading) return null;
 
     // if (!disablePageLoadAnimation) {
     //   setPageLoading(true)
     // }
+
+    if (LinkData?.onClick) {
+      LinkData.onClick(e);
+    }
 
     if (onClick) {
       onClick(e);
