@@ -1,21 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 export async function middleware(request: NextRequest) {
+  const cookieStore = await cookies();
   console.log("[middleware] request");
-  let pathname = request.nextUrl.pathname;
+  const { pathname } = request.nextUrl;
   let redirectTo = false;
 
-  const language = request.cookies.get("locale");
+  const locale = cookieStore.get("locale");
+  console.log("[middleware] cookieStore language", locale);
   const locales = process.env.NEXT_PUBLIC_LOCALES!.split(",");
+  console.log("[middleware] available locales", locales);
   const pathnameCurrentLocale = locales.find((locale: string) => {
     return pathname.includes(`/${locale}/`) || pathname === `/${locale}`;
   });
+  console.log("[middleware] pathname", pathname);
 
-  console.log("[middleware] locales", locales);
-
-  const lang =
-    language?.value.toLowerCase() ||
-    process.env.NEXT_PUBLIC_DEFAULT_LOCALE!.toLowerCase();
+  const lang = pathnameCurrentLocale
+    ? pathnameCurrentLocale
+    : locale?.value.toLowerCase() ||
+      process.env.NEXT_PUBLIC_DEFAULT_LOCALE!.toLowerCase();
+  console.log("[middleware] resolved language", lang);
+  cookieStore.set("locale", lang);
 
   if (!pathnameCurrentLocale) {
     return NextResponse.redirect(new URL(`/${lang}/${pathname}`, request.url));

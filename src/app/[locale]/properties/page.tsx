@@ -11,7 +11,6 @@ export default async function Properties({
   const home = await getSanityPage("properties", locale);
   const pageTopImage = home.pageSettings?.image?.url;
   const sections = home.sections;
-  console.log("home:", home);
 
   return (
     <PageTemplate

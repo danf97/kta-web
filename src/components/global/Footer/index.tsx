@@ -5,12 +5,11 @@ import { Row } from "@/components/ui/Row";
 import { SettingsQueryResult } from "@/sanity/queries/documents/settings";
 import { LanguageIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import LanguageSelector from "../LanguageSelector/LanguageSelector";
 
 const Footer = ({ settings }: { settings: SettingsQueryResult }) => {
   const { footer } = settings;
   const navigation = footer?.navigation || [];
-
-  console.log({ footer });
 
   return (
     <footer className="bg-sand-light text-black border-t border-black py-15">
@@ -21,18 +20,7 @@ const Footer = ({ settings }: { settings: SettingsQueryResult }) => {
               <LogoKta className="h-7 w-auto hover:opacity-60" />
             </Link>
 
-            <fieldset className="flex">
-              <label htmlFor="language">
-                <span className="sr-only">Select language</span>
-                <div className="w-5">
-                  <LanguageIcon />
-                </div>
-              </label>
-              <select name="language" id="language" className="body-16 pr-1">
-                <option value="en">English</option>
-                <option value="pt">Português</option>
-              </select>
-            </fieldset>
+            <LanguageSelector />
           </div>
           <div className="">
             <ul className="my-10 -ml-3">

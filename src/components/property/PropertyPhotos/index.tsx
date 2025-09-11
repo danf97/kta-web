@@ -35,8 +35,6 @@ const PropertyPhotos = ({
     const activePhotoElement = document.getElementById(`photo-${index}`);
     const activePhotoRect = activePhotoElement?.getBoundingClientRect();
 
-    console.log(`photo-${index}`);
-
     if (activePhotoRect && ref.current) {
       const newTop = Math.max(
         0,

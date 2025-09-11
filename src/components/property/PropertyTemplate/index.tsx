@@ -78,8 +78,6 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
     checkOutTime,
   };
 
-  console.log({ property });
-
   const spaceStyles = `my-12`;
 
   const [photoSliderIsOpen, setPhotoSliderIsOpen] = useState(false);
@@ -283,7 +281,7 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
         </Col>
 
         <Col className="w-5/12 pl-8 sticky top-[76px] self-start py-12">
-          <div className="border border-black rounded-3xl p-8 bg-sand-light">
+          <div className="border border-black rounded-3xl p-6 bg-sand-light">
             <h2 className="body-xl mb-6">
               {mainStringsResolver("Entre em contacto", lang)}
             </h2>

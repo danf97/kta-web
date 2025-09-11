@@ -9,7 +9,5 @@ export default async function Property({
   const { locale, uid } = await params;
   const property = await getSanityProperty({ slug: uid, lang: locale });
 
-  console.log("property:", property);
-
   return <PropertyTemplate property={property} />;
 }

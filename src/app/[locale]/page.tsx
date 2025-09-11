@@ -13,7 +13,6 @@ export default async function Home({
   const home = await getSanityHomePage(locale);
   const pageTopImage = home.pageSettings?.image?.url;
   const sections = home.sections;
-  console.log("home:", home);
 
   return (
     <PageTemplate

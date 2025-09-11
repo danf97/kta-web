@@ -61,7 +61,6 @@ const PropertyFacilities = ({
   }[];
   lang?: string;
 }) => {
-  console.log({ facilities });
   return (
     <div className="flex flex-col">
       <div className="flex items-center justify-between mb-12">

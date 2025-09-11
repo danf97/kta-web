@@ -15,7 +15,6 @@ const Banner = ({
   index: number;
 }) => {
   const { title, message, cta, image } = section;
-  console.log("Banner Section:", section);
 
   return (
     <div key={section._key || index} className="vertical-space">

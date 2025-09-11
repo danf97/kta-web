@@ -12,8 +12,6 @@ const PropertyImportantDetails = ({
   rules: RulesType;
   lang?: string;
 }) => {
-  console.log({ rules });
-
   const defaultRules = rules.defaultRules;
 
   // const activeRules = rules.useDefaultRules ? defaultRules : rules;
