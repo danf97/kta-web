@@ -6,4 +6,5 @@ export const sanitySections = {
   cardsList: dynamic(() => import("./CardsList")),
   cardsSlider: dynamic(() => import("./CardsSlider")),
   featuredCards: dynamic(() => import("./FeaturedCards")),
+  form: dynamic(() => import("./Form")),
 } as const;
