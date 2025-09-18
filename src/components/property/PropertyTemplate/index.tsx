@@ -14,6 +14,7 @@ import PropertyLocation from "../PropertyLocation";
 import PropertyImportantDetails from "../PropertyImportantDetails";
 import { Button } from "@/components/ui/Button";
 import { mainStringsResolver } from "@/libs/mainStrings";
+import PropertyBooking from "../PropertyBooking";
 
 const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
   const {
@@ -286,6 +287,10 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
         </Col>
 
         <Col className="w-full pb-12 smallDesktop:w-5/12 smallDesktop:pl-8 sticky top-[76px] self-start smallDesktop:py-12">
+          <div>
+            <PropertyBooking />
+          </div>
+
           <div className="border border-black rounded-3xl p-8 bg-sand-light">
             <h2 className="body-xl mb-6">
               {mainStringsResolver("Entre em contacto", lang)}
