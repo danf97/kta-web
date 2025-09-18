@@ -72,6 +72,7 @@ export const Button = ({
   type: "primary" | "secondary" | "ghost";
   state?: "idle" | "active" | "disabled";
   size?: "large" | "medium" | "small" | "icon";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onClick?: (e: any) => void;
   link?: LinkGlobalObjectQueryResult;
   href?: string;
@@ -147,6 +148,7 @@ export const Button = ({
     </>
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onClickHandler = (e: any) => {
     console.log("click", link);
     if (isLoading) return null;

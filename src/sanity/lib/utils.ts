@@ -4,6 +4,7 @@ import { LinkGlobalObjectQueryResult } from "../queries/objects/linkGlobalObject
 export const sanityLinkResolver = (
   link: LinkGlobalObjectQueryResult,
   actionResolvers: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: (arg: any) => void;
   }
 ) => {
@@ -25,6 +26,7 @@ export const sanityLinkResolver = (
   } else if (link.linkType === "action") {
     if (link.action === "open_cookie_preferences") {
       return {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onClick: (e: any) => {
           actionResolvers.open_cookie_preferences(true);
         },
