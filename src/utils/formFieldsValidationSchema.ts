@@ -14,17 +14,26 @@ type fieldsTypes =
 
 export const formFieldsValidationSchema = ({
   fields,
+  lang,
 }: {
   fields: fieldsTypes[];
+  lang: "en" | "pt";
 }) => {
   // Messages
-  const mandatoryFieldMessage = "Required field.";
-  const emailInvalidMessage = "Invalid email address.";
-  const passwordMismatchMessage = "Passwords do not match.";
+  const mandatoryFieldMessage =
+    lang == "en" ? "Required field." : "Campo obrigatório.";
+  const emailInvalidMessage =
+    lang == "en" ? "Invalid email address." : "Email inválido.";
+  const passwordMismatchMessage =
+    lang == "en" ? "Passwords do not match." : "As passwords não coincidem.";
   const passwordInvalidMessage =
-    "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character";
+    lang == "en"
+      ? "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+      : "Deve conter 8 caracteres, uma maiúscula, uma minúscula, um número e um caractere especial";
   const phoneInvalidMessage =
-    "Please enter a valid phone number, starting with a '+' and followed by 10-15 digits. No spaces or special characters allowed.";
+    lang == "en"
+      ? "Please enter a valid phone number, starting with a '+' and followed by 10-15 digits. No spaces or special characters allowed."
+      : "Por favor insira um número de telefone válido, começando com '+' e seguido de 10-15 dígitos. Não são permitidos espaços ou caracteres especiais.";
 
   // Regex
   // const passwordRegExp =

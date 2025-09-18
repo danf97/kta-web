@@ -28,13 +28,15 @@ const GetInTouchForm = ({ lang }: { lang: "en" | "pt" }) => {
     resolver: useYupValidationResolver(
       formFieldsValidationSchema({
         fields: ["first_last_name", "email", "phone", "message"],
+        lang,
       })
     ),
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
   const [apiErrors, setApiErrors] = useState<{ message: string }[]>([]);
-  const [newsletterAgree, setNewsletterAgree] = useState(false);
+  // const [newsletterAgree, setNewsletterAgree] = useState(false);
   // const [termsAgree, setTermsAgree] = useState(false);
 
   const first_last_name = watch("first_last_name");
@@ -90,11 +92,7 @@ const GetInTouchForm = ({ lang }: { lang: "en" | "pt" }) => {
       );
 
       await createBookingRequestServer();
-      alert(
-        lang === "en"
-          ? "Email sent successfully!"
-          : "Email enviado com sucesso!"
-      );
+      setSubmitSuccess(true);
       setIsLoading(false);
     } catch (error) {
       console.error("Error creating booking request:", error);
@@ -108,47 +106,51 @@ const GetInTouchForm = ({ lang }: { lang: "en" | "pt" }) => {
   }, [first_last_name, email, phone, message]);
 
   return (
-    <form onSubmit={handleSubmit((data) => submitHandler(data))}>
-      <div className="flex flex-col gap-2">
-        <Input
-          name="first_last_name"
-          register={{
-            ...register("first_last_name"),
-          }}
-          label={stringsData.first_last_name[lang]}
-          type="text"
-          error={errors.first_last_name?.message as string}
-        />
-        <Input
-          name="email"
-          register={{
-            ...register("email"),
-          }}
-          label={stringsData.email[lang]}
-          type="text"
-          error={errors.email?.message as string}
-        />
-        <Input
-          name="phone"
-          register={{
-            ...register("phone"),
-          }}
-          label={stringsData.phone[lang]}
-          type="text"
-          error={errors.phone?.message as string}
-        />
-        <Input
-          name="message"
-          label={stringsData.message[lang]}
-          register={{
-            ...register("message"),
-          }}
-          type="text"
-          error={errors.message?.message as string}
-          asTextArea
-        />
+    <div className="relative">
+      <form
+        className={`${submitSuccess ? "invisible opacity-0" : "visible opacity-100"}`}
+        onSubmit={handleSubmit((data) => submitHandler(data))}
+      >
+        <div className="flex flex-col gap-2">
+          <Input
+            name="first_last_name"
+            register={{
+              ...register("first_last_name"),
+            }}
+            label={stringsData.first_last_name[lang]}
+            type="text"
+            error={errors.first_last_name?.message as string}
+          />
+          <Input
+            name="email"
+            register={{
+              ...register("email"),
+            }}
+            label={stringsData.email[lang]}
+            type="text"
+            error={errors.email?.message as string}
+          />
+          <Input
+            name="phone"
+            register={{
+              ...register("phone"),
+            }}
+            label={stringsData.phone[lang]}
+            type="text"
+            error={errors.phone?.message as string}
+          />
+          <Input
+            name="message"
+            label={stringsData.message[lang]}
+            register={{
+              ...register("message"),
+            }}
+            type="text"
+            error={errors.message?.message as string}
+            asTextArea
+          />
 
-        {/* <CheckBoxField
+          {/* <CheckBoxField
           initialValue={false}
           name="newsletter_agree"
           label="Subscribe to receive our latest updates, exclusive offers, and tailored content. You may opt out at any time."
@@ -161,7 +163,7 @@ const GetInTouchForm = ({ lang }: { lang: "en" | "pt" }) => {
           error={null}
         /> */}
 
-        {/* <CheckBoxField
+          {/* <CheckBoxField
           initialValue={false}
           name="terms_agree"
           label={
@@ -180,19 +182,36 @@ const GetInTouchForm = ({ lang }: { lang: "en" | "pt" }) => {
           error={errors.terms_agree?.message as string}
         /> */}
 
-        <span
-          dangerouslySetInnerHTML={{
-            __html: stringsData.terms_agree[lang],
-          }}
-        />
+          <span
+            dangerouslySetInnerHTML={{
+              __html: stringsData.terms_agree[lang],
+            }}
+          />
 
-        <Button
-          label={stringsData.submit[lang]}
-          type="secondary"
-          isLoading={isLoading}
-        />
+          <Button
+            label={stringsData.submit[lang]}
+            type="secondary"
+            isLoading={isLoading}
+          />
+        </div>
+      </form>
+
+      <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 px-2">
+        {submitSuccess && (
+          <div className="p-4 bg-green-100 border border-green-300 text-green-800 rounded">
+            {stringsData.successMessage[lang]}
+          </div>
+        )}
+
+        {apiErrors.length > 0 && (
+          <div className="p-4 bg-red-100 border border-red-300 text-red-800 rounded">
+            {apiErrors.map((err, index) => (
+              <p key={index}>{err.message}</p>
+            ))}
+          </div>
+        )}
       </div>
-    </form>
+    </div>
   );
 };
 

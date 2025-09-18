@@ -97,8 +97,6 @@ export const Button = ({
       ? sanityLinkResolver(link, actionResolvers)
       : null;
 
-  console.log({ LinkData, link });
-
   const hasUrl = LinkData && "url" in LinkData && LinkData.url !== null;
   const classNames = cleanClassName(
     `
