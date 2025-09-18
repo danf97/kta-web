@@ -1,21 +1,21 @@
 import { SectionType } from "@/sanity/queries/sections";
-import { featuredCardsQueryResult } from "@/sanity/queries/sections/featured-cards";
 import { Row } from "@/components/ui/Row";
 import { Col } from "@/components/ui/Col";
-import { Button } from "@/components/ui/Button";
-import BigPropertyCard from "@/components/cards/BigPropertyCard";
 import { BannerQueryResult } from "@/sanity/queries/sections/banner";
-import Image from "next/image";
-import { Input } from "@/components/ui/Input";
+import GetInTouchForm from "@/components/forms/GetInTouchForm";
+import { SectionZoneProps } from "../SectionZone";
 
 const Form = ({
   section,
   index,
+  context,
 }: {
   section: SectionType<BannerQueryResult>;
   index: number;
+  context: SectionZoneProps["context"];
 }) => {
   const { title } = section;
+  const { lang } = context;
 
   return (
     <div
@@ -23,8 +23,8 @@ const Form = ({
       className="vertical-space overflow-hidden max-w-screen"
     >
       <Row>
-        <Col className="w-1/2">
-          <Input label="Your Email" isRequired />
+        <Col className="w-1/2 mx-auto">
+          <GetInTouchForm lang={lang} />
         </Col>
       </Row>
     </div>

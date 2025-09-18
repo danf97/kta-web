@@ -5,7 +5,7 @@ import { sectionsQueryResult } from "@/sanity/queries/sections";
 export type SectionZoneProps = {
   sections?: sectionsQueryResult;
   context: {
-    lang: string;
+    lang: "en" | "pt";
   } & { [key: string]: string | number | boolean | null | undefined };
 };
 

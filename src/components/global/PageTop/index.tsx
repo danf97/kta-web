@@ -11,7 +11,7 @@ const PageTop = ({ image }: { image: string }) => {
         height={600}
         sizes="100vw"
       />
-      <div className="bg-linear-to-t from-sand to-transparent w-full h-[80%] absolute left-0 bottom-0" />
+      <div className="bg-linear-to-t from-sand to-transparent w-full h-[130%] absolute left-0 bottom-0" />
     </div>
   );
 };

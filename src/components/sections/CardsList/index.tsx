@@ -12,7 +12,7 @@ const CardsList = ({
   index: number;
 }) => {
   const { title, cards } = section;
-  console.log("🚀 CardsList section:", section);
+
   return (
     <div key={section._key || index} className="cards-list vertical-space">
       <Row>

@@ -24,10 +24,8 @@ export const sanityLinkResolver = (
     };
   } else if (link.linkType === "action") {
     if (link.action === "open_cookie_preferences") {
-      console.log("Opening cookie preferences");
       return {
         onClick: (e: any) => {
-          console.log("on click: Opening cookie preferences");
           actionResolvers.open_cookie_preferences(true);
         },
       };

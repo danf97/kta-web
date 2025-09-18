@@ -85,7 +85,7 @@ export const Input = (inputProps: InputProps) => {
       bg-white rounded-3xl w-full appearance-none
       pl-4 pb-3 pt-8 border border-white
       focus:border-gray-300 focus:outline-none focus:ring-0 
-      ${error ? "!border-error-500 !border-b-[2px] !text-error-500" : ""} 
+      ${error ? "!border-accent-red !border-[1px] !text-accent-red" : ""} 
       peer 
       ${searchIcon ? "!pl-[calc(24px+32px)]" : ""} 
       ${readOnly ? "!border-b opacity-50 cursor-not-allowed" : ""}
@@ -109,12 +109,13 @@ export const Input = (inputProps: InputProps) => {
         )}
         <label
           className={`
-            pointer-events-none absolute left-0 pl-5 origin-[0] transform duration-200
-            uppercase body-16 text-primary-black peer-placeholder:text-text-secondary
+            pointer-events-none absolute left-0 pl-6 origin-[0] transform duration-200
+            uppercase body-16 text-primary-black
+            peer-placeholder:text-gray-100
             ${
               !asTextArea
                 ? "top-1/2 -translate-y-1/2 scale-100 peer-focus:scale-75 peer-focus:-translate-y-[22px]"
-                : "top-6 -translate-y-[22px] peer-focus:-translate-y-[22px]"
+                : "top-8 -translate-y-[22px] scale-75"
             } 
             ${searchIcon ? "ml-[calc(24px+16px)]" : ""}
             ${readOnly ? "opacity-50 cursor-not-allowed" : ""}
@@ -176,9 +177,11 @@ export const Input = (inputProps: InputProps) => {
       </div>
       <p
         className={`${
-          error ? "opacity-1 max-h-[100%] py-2 mb-2" : "max-h-0 opacity-0"
-        } body-s relative  text-error-500 transition-all duration-200 ${
-          isNewsletter ? "!text-[#fa644e] " : ""
+          error
+            ? "opacity-100 max-h-[100%] pl-4 py-1 mb-3"
+            : "max-h-0 opacity-0"
+        } body-16 relative  text-accent-red transition-all duration-200 ${
+          isNewsletter ? "!text-accent-red" : ""
         }`}
       >
         {error}
