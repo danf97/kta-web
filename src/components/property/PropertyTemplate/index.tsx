@@ -291,10 +291,13 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
 
         <Col className="w-full pb-12 smallDesktop:w-5/12 smallDesktop:pl-8 sticky top-[76px] self-start smallDesktop:py-12">
           <div>
-            <PropertyBooking pricingTable={pricingTable} />
+            <PropertyBooking
+              pricingTable={pricingTable}
+              maxGuests={maxGuests}
+            />
           </div>
 
-          <div className="border border-black rounded-3xl p-8 bg-sand-light">
+          <div className="border border-black rounded-3xl p-6 bg-sand-light mt-10">
             <h2 className="body-xl mb-6">
               {mainStringsResolver("Entre em contacto", lang)}
             </h2>
