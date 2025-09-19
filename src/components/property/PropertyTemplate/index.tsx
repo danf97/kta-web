@@ -17,6 +17,7 @@ import { mainStringsResolver } from "@/libs/mainStrings";
 import PropertyBooking from "../PropertyBooking";
 
 const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
+  console.log({ property });
   const {
     // Meta
     meta: { slug, lang },
@@ -59,6 +60,7 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
     checkInOrangeTime,
     checkInRedTime,
     checkOutTime,
+    pricingTable,
   } = property;
 
   const rules = {
@@ -289,7 +291,7 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
 
         <Col className="w-full pb-12 smallDesktop:w-5/12 smallDesktop:pl-8 sticky top-[76px] self-start smallDesktop:py-12">
           <div>
-            <PropertyBooking />
+            <PropertyBooking pricingTable={pricingTable} />
           </div>
 
           <div className="border border-black rounded-3xl p-8 bg-sand-light">

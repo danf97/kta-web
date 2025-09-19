@@ -1,16 +1,30 @@
 import { Button } from "@/components/ui/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./styles.scss";
 import { addDays, subDays } from "date-fns";
+import { PropertyQueryResult } from "@/sanity/queries/documents/property";
+import { getBookingPrice } from "@/utils/getBookingPrice";
 
-const PropertyBooking = () => {
+const PropertyBooking = ({
+  pricingTable,
+}: {
+  pricingTable: PropertyQueryResult["pricingTable"];
+}) => {
   const [checkInData, setCheckInData] = useState<Date | null>(null);
   const [checkOutData, setCheckOutData] = useState<Date | null>(null);
 
   console.log({ checkInData, checkOutData });
+
+  useEffect(() => {
+    if (!checkInData || !checkOutData) return;
+    const totalPrice = getBookingPrice(checkInData, checkOutData, pricingTable);
+    console.log({ totalPrice });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkInData, checkOutData]);
+
   return (
     <div className="border border-black rounded-3xl p-6 bg-white">
       <div className="mb-5">
@@ -23,7 +37,7 @@ const PropertyBooking = () => {
         )}
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-row gap-4">
         <div className="bg-gray-100 rounded-2xl p-3 flex-1">
           <div className="body-xxs-bold uppercase mb-2">Check-in</div>
           <div className="body-16 bold text-black">
@@ -44,14 +58,7 @@ const PropertyBooking = () => {
           </div>
         </div>
 
-        {checkInData && (
-          <ul className="body-xs mt-2 list-disc ml-5">
-            <li>Minimum stay: 7 days</li>
-            <li>Check-in days need to be on: Mondays</li>
-          </ul>
-        )}
-
-        <div className="bg-gray-100 rounded-2xl p-3 my-4 flex-1">
+        <div className="bg-gray-100 rounded-2xl p-3 flex-1">
           <div className="body-xxs-bold uppercase mb-2">Check-out</div>
           <div className="body-16 bold text-black">
             {!checkOutData && <span className="absolute ">Pick a date</span>}
@@ -71,6 +78,17 @@ const PropertyBooking = () => {
           </div>
         </div>
       </div>
+
+      {checkInData && (
+        <div className="body-xs my-4">
+          <p>Please note:</p>
+          <ul className="list-disc ml-5">
+            <li>Minimum stay: 7 nights</li>
+            <li>Check-in only on: Mondays</li>
+            <li>Check-out only on: Mondays</li>
+          </ul>
+        </div>
+      )}
 
       <div className="bg-gray-100 rounded-2xl p-3 mb-6 flex-1">
         <div className="body-xxs-bold uppercase mb-2">Total of guests</div>
