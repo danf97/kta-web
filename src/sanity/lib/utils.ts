@@ -26,8 +26,7 @@ export const sanityLinkResolver = (
   } else if (link.linkType === "action") {
     if (link.action === "open_cookie_preferences") {
       return {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        onClick: (e: any) => {
+        onClick: () => {
           actionResolvers.open_cookie_preferences(true);
         },
       };

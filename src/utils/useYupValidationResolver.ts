@@ -1,5 +1,7 @@
 import { useCallback } from "react";
+import { ValidationError } from "yup";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const useYupValidationResolver = (validationSchema: any) =>
   useCallback(
     async (data: unknown) => {
@@ -12,13 +14,17 @@ export const useYupValidationResolver = (validationSchema: any) =>
           values,
           errors: {},
         };
-      } catch (errors: any) {
+        // @ts-expect-error errors is ValidationError
+      } catch (errors: ValidationError) {
         return {
           values: {},
-          errors: errors.inner.reduce(
-            (allErrors: any, currentError: any) => ({
+          errors: errors?.inner?.reduce(
+            (
+              allErrors: Record<string, unknown>,
+              currentError: import("yup").ValidationError
+            ) => ({
               ...allErrors,
-              [currentError.path]: {
+              [currentError.path as string]: {
                 type: currentError.type ?? "validation",
                 message: currentError.message,
               },

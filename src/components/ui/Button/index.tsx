@@ -1,13 +1,12 @@
 "use client";
 
-// import { linkResolverClient } from "@/lib/utils";
 import { LinkGlobalObjectQueryResult } from "@/sanity/queries/objects/linkGlobalObject";
 import { sanityLinkResolver } from "@/sanity/lib/utils";
 import Link from "next/link";
 import { cleanClassName } from "@/utils/cleanClassName";
-import { useRouter } from "next/navigation";
 import { CookiesContext } from "@/app/context/CookiesContext";
 import { useContext } from "react";
+import { AppContext } from "@/app/context/AppContext";
 
 export type ButtonStyles = {
   primary: {
@@ -82,8 +81,7 @@ export const Button = ({
   label?: string;
   disablePageLoadAnimation?: boolean;
 }) => {
-  const router = useRouter();
-  // const { setPageLoading, handleMiniCart } = useContext(AppContext)
+  const { setPageLoading } = useContext(AppContext);
   const { setShowPreferences } = useContext(CookiesContext);
 
   const actionResolvers = {
@@ -153,12 +151,12 @@ export const Button = ({
     console.log("click", link);
     if (isLoading) return null;
 
-    // if (!disablePageLoadAnimation) {
-    //   setPageLoading(true)
-    // }
+    if (!disablePageLoadAnimation) {
+      setPageLoading(true);
+    }
 
     if (LinkData?.onClick) {
-      LinkData.onClick(e);
+      LinkData.onClick();
     }
 
     if (onClick) {

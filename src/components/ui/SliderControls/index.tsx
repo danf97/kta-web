@@ -19,6 +19,7 @@ const SliderControls = () => {
 
   useEffect(() => {
     updateSliderControls();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [swiper]);
 
   const updateSliderControls = () => {

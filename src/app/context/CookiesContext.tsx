@@ -95,6 +95,7 @@ export const CookiesProvider = ({ children }: CookiesProviderProps) => {
     if (typeof window === "undefined") return;
 
     if (consentData && typeof window !== "undefined" && "gtag" in window) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window.gtag as any)("consent", "update", {
         ad_user_data: consentData.allowPersonalization ? "granted" : "denied",
         ad_personalization: consentData.allowPersonalization
@@ -104,7 +105,6 @@ export const CookiesProvider = ({ children }: CookiesProviderProps) => {
         analytics_storage: consentData.allowAnalytics ? "granted" : "denied",
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [consentData]);
 
   // Changing logic

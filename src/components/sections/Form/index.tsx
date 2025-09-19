@@ -14,7 +14,7 @@ const Form = ({
   index: number;
   context: SectionZoneProps["context"];
 }) => {
-  const { title } = section;
+  // const { title } = section;
   const { lang } = context;
 
   return (

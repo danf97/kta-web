@@ -1,7 +1,5 @@
 import PageTemplate from "@/components/global/PageTemplate";
 import { SectionZone } from "@/components/sections";
-import { Col } from "@/components/ui/Col";
-import { Row } from "@/components/ui/Row";
 import { getSanityHomePage } from "@/sanity/services";
 
 export default async function Home({
@@ -28,7 +26,7 @@ export default async function Home({
           <SectionZone
             sections={sections}
             context={{
-              lang: locale,
+              lang: locale as "en" | "pt",
             }}
           />
         ) : null}

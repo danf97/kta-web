@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/Button";
 import { Col } from "@/components/ui/Col";
 import { Row } from "@/components/ui/Row";
 import { SettingsQueryResult } from "@/sanity/queries/documents/settings";
-import { LanguageIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import LanguageSelector from "../LanguageSelector/LanguageSelector";
 

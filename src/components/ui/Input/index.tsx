@@ -14,9 +14,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string | null;
   register?: object;
   asTextArea?: boolean;
-  // eslint-disable-next-line no-unused-vars
   onChange?: (
-    // eslint-disable-next-line no-unused-vars
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   classes?: string;
@@ -164,6 +162,7 @@ export const Input = (inputProps: InputProps) => {
               type="button"
               className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer"
               onClick={() => {
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                 customType === "password"
                   ? setCustomType("text")
                   : setCustomType("password");

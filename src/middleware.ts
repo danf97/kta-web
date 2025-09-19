@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 export async function middleware(request: NextRequest) {
   const cookieStore = await cookies();
   const { pathname } = request.nextUrl;
-  let redirectTo = false;
+  const redirectTo = false;
 
   const locale = cookieStore.get("locale");
   console.log("[middleware] cookieStore language", locale);

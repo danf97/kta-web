@@ -1,5 +1,4 @@
 import { mainStringsResolver } from "@/libs/mainStrings";
-import { Amenities } from "@/sanity/queries/documents/property";
 import { translatableTextObjectType } from "@/sanity/queries/objects/translatableTextObject";
 import { multilangFieldResolver } from "@/utils/multilangFieldResolver";
 

@@ -4,8 +4,6 @@ import { Button } from "@/components/ui/Button";
 import { PropertyCardType } from "@/sanity/queries/objects/propertyCardObject";
 import { multilangFieldResolver } from "@/utils/multilangFieldResolver";
 import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useRef } from "react";
 
 const BigPropertyCard = ({
   key,

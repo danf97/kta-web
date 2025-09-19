@@ -138,6 +138,7 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

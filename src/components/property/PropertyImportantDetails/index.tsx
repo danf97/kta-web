@@ -1,6 +1,5 @@
 import { mainStringsResolver } from "@/libs/mainStrings";
-import { Amenities, RulesType } from "@/sanity/queries/documents/property";
-import { translatableTextObjectType } from "@/sanity/queries/objects/translatableTextObject";
+import { RulesType } from "@/sanity/queries/documents/property";
 import { multilangFieldResolver } from "@/utils/multilangFieldResolver";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import React from "react";

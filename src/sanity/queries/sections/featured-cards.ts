@@ -1,5 +1,4 @@
 import { groq } from "next-sanity";
-import { ImageObject, ImageObjectType } from "../objects/imageObject";
 
 import {
   linkGlobalObject,

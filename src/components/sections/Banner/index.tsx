@@ -1,9 +1,7 @@
 import { SectionType } from "@/sanity/queries/sections";
-import { featuredCardsQueryResult } from "@/sanity/queries/sections/featured-cards";
 import { Row } from "@/components/ui/Row";
 import { Col } from "@/components/ui/Col";
 import { Button } from "@/components/ui/Button";
-import BigPropertyCard from "@/components/cards/BigPropertyCard";
 import { BannerQueryResult } from "@/sanity/queries/sections/banner";
 import Image from "next/image";
 

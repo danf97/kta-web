@@ -6,16 +6,14 @@ import { LanguageIcon } from "@heroicons/react/24/outline";
 import React, { useContext } from "react";
 
 const LanguageSelector = ({ className }: { className?: string }) => {
-  const { locale, handleLocale, availableLocales } = useContext(AppContext);
-
-  const locales = availableLocales;
+  const { locale, handleLocale } = useContext(AppContext);
 
   const handleSelectLanguage = (lang: string) => {
     handleLocale(lang);
   };
 
   return (
-    <fieldset className="flex">
+    <fieldset className={`flex ${className}`}>
       <label htmlFor="language">
         <span className="sr-only">Select language</span>
         <div className="w-5">

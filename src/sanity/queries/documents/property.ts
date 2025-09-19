@@ -1,7 +1,5 @@
 import { defineQuery } from "next-sanity";
-import { sectionsQuery, sectionsQueryResult } from "../sections";
 import { ImageObject, ImageObjectType } from "../objects/imageObject";
-import { seoObject, SeoObjectType } from "../objects/seoObject";
 import {
   translatableTextObject,
   translatableTextObjectType,

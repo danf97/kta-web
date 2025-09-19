@@ -1,11 +1,11 @@
 import PageTemplate from "@/components/global/PageTemplate";
 import { SectionZone } from "@/components/sections";
-import { getSanityHomePage, getSanityPage } from "@/sanity/services";
+import { getSanityPage } from "@/sanity/services";
 
 export default async function Properties({
   params,
 }: {
-  params: Promise<{ locale: string; slug: string }>;
+  params: Promise<{ locale: string; slug: "pt" | "en" }>;
 }) {
   const { locale, slug } = await params;
   const home = await getSanityPage(slug, locale);
@@ -26,7 +26,7 @@ export default async function Properties({
           <SectionZone
             sections={sections}
             context={{
-              lang: locale,
+              lang: locale as "en" | "pt",
             }}
           />
         ) : null}

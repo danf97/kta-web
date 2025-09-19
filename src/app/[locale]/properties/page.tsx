@@ -1,6 +1,6 @@
 import PageTemplate from "@/components/global/PageTemplate";
 import { SectionZone } from "@/components/sections";
-import { getSanityHomePage, getSanityPage } from "@/sanity/services";
+import { getSanityPage } from "@/sanity/services";
 
 export default async function Properties({
   params,
@@ -26,7 +26,7 @@ export default async function Properties({
           <SectionZone
             sections={sections}
             context={{
-              lang: locale,
+              lang: locale as "en" | "pt",
             }}
           />
         ) : null}

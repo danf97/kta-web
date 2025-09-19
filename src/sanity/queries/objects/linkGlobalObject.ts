@@ -74,17 +74,6 @@ const internalLinkResolver = groq`
   }
 `;
 
-const propertyLinkResolver = groq`
-  "internalLink": linkReference->{
-    _type,
-    _type == "property" => {
-      lang,
-      "slug": store.slug.current,
-      "url": "/properties/" + store.slug.current,
-    }
-  }
-`;
-
 const linkResolver = groq`
   linkType == "internal" => {
     ${internalLinkResolver}

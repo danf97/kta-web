@@ -11,8 +11,8 @@ export const Select = ({
 }) => {
   return (
     <fieldset>
-      <label></label>
-      <select>
+      <label>{label}</label>
+      <select required={isRequired}>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

@@ -24,6 +24,7 @@
     "resend": "^4.6.0",
     "sanity-image": "^1.0.0",
     "sass": "^1.90.0",
+    "styled-components": "^6.1.19",
     "swiper": "^11.2.10",
     "yup": "^1.7.0"
   },
