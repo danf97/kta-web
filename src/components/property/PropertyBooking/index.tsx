@@ -1,28 +1,33 @@
 "use client";
 
 import { Button } from "@/components/ui/Button";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { addDays, subDays } from "date-fns";
 import { PropertyQueryResult } from "@/sanity/queries/documents/property";
 import { getBookingPrice } from "@/utils/getBookingPrice";
+import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./styles.scss";
-import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 
 const PropertyBooking = ({
+  slug,
   pricingTable,
   maxGuests,
 }: {
+  slug: string;
   pricingTable: PropertyQueryResult["pricingTable"];
   maxGuests: number;
 }) => {
+  const router = useRouter();
   const [checkInData, setCheckInData] = useState<Date | null>(null);
   const [checkOutData, setCheckOutData] = useState<Date | null>(null);
   const [totalNights, setTotalNights] = useState<number | null>(null);
   const [bookingPrice, setBookingPrice] = useState<number | null>(null);
   const [bookingError, setBookingError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const bookingPriceMoney = bookingPrice
     ? `${bookingPrice.toLocaleString("pt-PT", {
@@ -51,8 +56,6 @@ const PropertyBooking = ({
   //     })}`
   //   : null;
 
-  console.log({ checkInData, checkOutData });
-
   useEffect(() => {
     if (!checkInData || !checkOutData) return;
 
@@ -75,6 +78,32 @@ const PropertyBooking = ({
   const [totalChildren, setTotalChildren] = useState(0);
   const [totalBabies, setTotalBabies] = useState(0);
 
+  const handleSubmit = () => {
+    // Handle booking submission logic here
+    console.log("Booking submitted");
+    setIsSubmitting(true);
+
+    router.push(
+      `/properties/${slug}/book?checkIn=${checkInData?.toISOString()}&checkOut=${checkOutData?.toISOString()}&adults=${totalAdults}&children=${totalChildren}&babies=${totalBabies}`
+    );
+  };
+
+  // Click outside to close person selector
+  useEffect(() => {
+    if (personSelectorIsOpen === false) return;
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest(".person-selector")) {
+        setPersonSelectorIsOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [personSelectorIsOpen]);
+
   return (
     <div className="border border-black rounded-3xl p-6 bg-white">
       <div className="mb-5">
@@ -87,13 +116,14 @@ const PropertyBooking = ({
         )}
       </div>
 
-      <div className="relative flex flex-row gap-4 z-[2]">
-        <div className="bg-gray-100 rounded-2xl p-3 flex-1">
+      <div className="relative flex flex-row flex-wrap gap-4 z-[2]">
+        <div className="flex flex-col bg-gray-100 rounded-2xl p-3 flex-1">
           <div className="body-xxs-bold uppercase mb-2">Check-in</div>
           <div className="body-16 bold text-black">
             {!checkInData && <span className="absolute ">Pick a date</span>}
-            <div className="kta-datepicker z-[100]">
+            <div className="kta-datepicker">
               <DatePicker
+                name="check-in"
                 dateFormat="dd/MM/yyyy"
                 selected={checkInData}
                 onChange={(date) => setCheckInData(date)}
@@ -114,6 +144,7 @@ const PropertyBooking = ({
             {!checkOutData && <span className="absolute ">Pick a date</span>}
             <div className="kta-datepicker">
               <DatePicker
+                name="check-out"
                 dateFormat="dd/MM/yyyy"
                 selected={checkOutData}
                 onChange={(date) => setCheckOutData(date)}
@@ -138,7 +169,7 @@ const PropertyBooking = ({
         </div>
       )}
 
-      <div className="relative mt-4 mb-6 _z-[1]">
+      <div className="relative mt-4">
         <button
           className={`w-full text-left cursor-pointer p-3 flex-1 border ${personSelectorIsOpen ? "rounded-t-2xl bg-white border-gray-300" : "rounded-2xl bg-gray-100 border-gray-100"}`}
           onClick={() => setPersonSelectorIsOpen(!personSelectorIsOpen)}
@@ -152,7 +183,7 @@ const PropertyBooking = ({
 
         <div
           className={`
-            absolute top-[calc(100%-13px)] p-3 z-[2] w-full bg-white border-b border-x border-gray-300 rounded-b-2xl shadow-lg
+            person-selector absolute top-[calc(100%-13px)] p-3 z-[2] w-full bg-white border-b border-x border-gray-300 rounded-b-2xl shadow-lg
             ${personSelectorIsOpen ? "block" : "hidden"}
           `}
         >
@@ -178,7 +209,7 @@ const PropertyBooking = ({
                 leftIcon={<PlusIcon className="w-3" />}
                 onClick={() =>
                   setTotalAdults((prev) =>
-                    prev + 1 <= maxGuests ? prev + 1 : prev
+                    prev + 1 <= maxGuests - totalChildren ? prev + 1 : prev
                   )
                 }
               />
@@ -246,10 +277,10 @@ const PropertyBooking = ({
         </div>
       </div>
 
-      <div className={`${!bookingPrice ? "hidden" : "block"}`}>
+      <div className={`my-8 ${!bookingPrice ? "hidden" : "block"}`}>
         <div className="body-xxs-bold uppercase mb-4">Detaild Price</div>
 
-        <ul className="body-16 mt-2 mb-4 ">
+        <ul className="body-16 mt-2">
           <li className="flex flex-row justify-between gap-2 mb-2">
             <span>Bed sheets and towels</span>
             <span>Included</span>
@@ -271,22 +302,29 @@ const PropertyBooking = ({
         </ul>
       </div>
 
-      <div className={`mb-4 ${!bookingPrice ? "hidden" : "block"}`}>
-        <p className="body-xs text-center">
-          You won&apos;t be charged yet. All bookings are subject to
-          availability and confirmation.
-        </p>
-      </div>
+      {checkInData && checkOutData && (
+        <>
+          <div className="z-[1] mt-6">
+            <Button
+              className="w-full"
+              type="primary"
+              label={bookingPrice ? "Request a booking" : "Request an estimate"}
+              state={"idle"}
+              onClick={() => {
+                handleSubmit();
+              }}
+              isLoading={isSubmitting}
+            />
+          </div>
 
-      <div className="z-[1]">
-        <Button
-          className="w-full"
-          type="primary"
-          label={bookingPrice ? "Request a booking" : "Request an estimate"}
-          state={checkInData && checkOutData ? "idle" : "disabled"}
-          onClick={() => {}}
-        />
-      </div>
+          <div className={`mt-4 ${!bookingPrice ? "hidden" : "block"}`}>
+            <p className="body-xs text-center">
+              You won&apos;t be charged yet. All bookings are subject to
+              availability and confirmation.
+            </p>
+          </div>
+        </>
+      )}
     </div>
   );
 };

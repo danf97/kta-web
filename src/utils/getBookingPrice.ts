@@ -14,7 +14,7 @@ export const getBookingPrice = (
     return { error: "Checkout must be after check-in" };
   }
   if (!priceTable || priceTable.length === 0) {
-    return { error: "No pricing rules defined" };
+    return { error: "For these dates please request an estimate." };
   }
   let totalPrice = 0;
   const currentDay = new Date(checkInDate);

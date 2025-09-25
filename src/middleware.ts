@@ -3,31 +3,34 @@ import { cookies } from "next/headers";
 
 export async function middleware(request: NextRequest) {
   const cookieStore = await cookies();
-  const { pathname } = request.nextUrl;
+  const { pathname, searchParams } = request.nextUrl;
   const redirectTo = false;
 
   const locale = cookieStore.get("locale");
-  console.log("[middleware] cookieStore language", locale);
   const locales = process.env.NEXT_PUBLIC_LOCALES!.split(",");
-  console.log("[middleware] available locales", locales);
   const pathnameCurrentLocale = locales.find((locale: string) => {
     return pathname.includes(`/${locale}/`) || pathname === `/${locale}`;
   });
-  console.log("[middleware] pathname", pathname);
 
   const lang = pathnameCurrentLocale
     ? pathnameCurrentLocale
     : locale?.value.toLowerCase() ||
       process.env.NEXT_PUBLIC_DEFAULT_LOCALE!.toLowerCase();
-  console.log("[middleware] resolved language", lang);
+
+  const searchParamsString =
+    searchParams.size > 0 ? "?" + searchParams.toString() : "";
 
   if (!pathnameCurrentLocale) {
-    return NextResponse.redirect(new URL(`/${lang}/${pathname}`, request.url));
+    return NextResponse.redirect(
+      new URL(`/${lang}/${pathname}${searchParamsString}`, request.url)
+    );
   }
 
   // The outgoing response will have a `Set-Cookie:vercel=fast;path=/test` header.
   if (redirectTo) {
-    return NextResponse.redirect(new URL(`/${lang}/${pathname}`, request.url));
+    return NextResponse.redirect(
+      new URL(`/${lang}/${pathname}${searchParamsString}`, request.url)
+    );
   }
 }
 

@@ -1,4 +1,4 @@
-import PropertyTemplate from "@/components/property/PropertyTemplate";
+import BookPage from "@/components/book-page/BookPage";
 import { getSanityProperty } from "@/sanity/services/getSanityProperty";
 
 export default async function Property({
@@ -9,5 +9,5 @@ export default async function Property({
   const { locale, slug } = await params;
   const property = await getSanityProperty({ slug, lang: locale });
 
-  return <PropertyTemplate property={property} />;
+  return <BookPage property={property} lang={locale as "pt" | "en"} />;
 }

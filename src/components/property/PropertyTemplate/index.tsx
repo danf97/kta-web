@@ -289,9 +289,10 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
           </div>
         </Col>
 
-        <Col className="w-full pb-12 smallDesktop:w-5/12 smallDesktop:pl-8 sticky top-[76px] self-start smallDesktop:py-12">
+        <Col className="w-full pb-12 smallDesktop:w-5/12 smallDesktop:pl-8 sticky top-[76px] self-start smallDesktop:py-12 smallDesktop:max-w-[408px] ml-auto">
           <div>
             <PropertyBooking
+              slug={slug}
               pricingTable={pricingTable}
               maxGuests={maxGuests}
             />

@@ -3,10 +3,11 @@ import Header from "@/components/global/Header";
 import { getSanitySettings } from "@/sanity/services";
 import Footer from "@/components/global/Footer";
 import { Providers } from "../providers";
+import CookieBanner from "@/components/global/CookieBanner";
 
 import "../../assets/styles/tailwind-config.css";
 import "../../assets/styles/globals.scss";
-import CookieBanner from "@/components/global/CookieBanner";
+import TopBarLoader from "@/components/global/TopBarLoader";
 
 export default async function RootLayout({
   children,
@@ -24,6 +25,7 @@ export default async function RootLayout({
       <body className={`${fontLoaderClasses}`}>
         <Providers locale={locale}>
           <>
+            <TopBarLoader />
             <Header settings={settings} />
             {children}
             <CookieBanner localeData={{ lang: locale }} />

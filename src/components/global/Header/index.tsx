@@ -8,12 +8,24 @@ import { Button } from "@/components/ui/Button";
 import { Col } from "@/components/ui/Col";
 import { Row } from "@/components/ui/Row";
 import LanguageSelector from "../LanguageSelector/LanguageSelector";
+import { usePathname } from "next/navigation";
 
 const Header = ({ settings }: { settings: SettingsQueryResult }) => {
   const { header } = settings;
   const navigation = header?.navigation || [];
 
+  const pathname = usePathname();
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [hideHeader, setHideHeader] = useState(false);
+
+  useEffect(() => {
+    const url = window.location.href;
+    if (url.includes("/book?")) {
+      setHideHeader(true);
+    } else {
+      setHideHeader(false);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     if (menuIsOpen) {
@@ -22,6 +34,8 @@ const Header = ({ settings }: { settings: SettingsQueryResult }) => {
       document.body.style.overflow = "auto";
     }
   }, [menuIsOpen]);
+
+  if (hideHeader) return null;
 
   return (
     <header className="absolute top-10 left-0 z-50 w-full">

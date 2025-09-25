@@ -101,7 +101,7 @@ export const Button = ({
     `
     group/btn
     relative z-[1]
-    inline-flex items-center justify-center
+    inline-flex items-center justify-center gap-2
     ` +
       (" " + buttonSizesStyles[size]) +
       (" " + buttonStyles[type][isLoading ? "active" : state]) +
@@ -148,10 +148,9 @@ export const Button = ({
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onClickHandler = (e: any) => {
-    console.log("click", link);
     if (isLoading) return null;
 
-    if (!disablePageLoadAnimation) {
+    if (!disablePageLoadAnimation && LinkData) {
       setPageLoading(true);
     }
 

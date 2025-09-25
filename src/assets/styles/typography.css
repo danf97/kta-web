@@ -69,7 +69,14 @@
     font-size: 30px;
     line-height: 130%;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 400;
+  }
+  .body-xl-bold {
+    font-family: var(--font-nexa-util);
+    font-size: 30px;
+    line-height: 130%;
+    font-style: normal;
+    font-weight: 400;
   }
 
   .body-l {

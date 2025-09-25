@@ -104,6 +104,7 @@ export type PropertyQueryResult = {
     slug: string;
     lang: string;
   };
+  _key: string;
   _id: string;
   _createdAt: string;
   _updatedAt: string;

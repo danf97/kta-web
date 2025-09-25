@@ -10,7 +10,8 @@ type fieldsTypes =
   | "cpassword"
   | "loginPassword"
   | "phone"
-  | "terms_agree";
+  | "terms_agree"
+  | "tax_number";
 
 export const formFieldsValidationSchema = ({
   fields,
@@ -63,9 +64,8 @@ export const formFieldsValidationSchema = ({
       .oneOf([Yup.ref("password")], passwordMismatchMessage),
     loginPassword: Yup.string().required(mandatoryFieldMessage),
     phone: Yup.string().matches(phoneRegExp, phoneInvalidMessage),
-    terms_agree: Yup.boolean()
-      .required(mandatoryFieldMessage)
-      .oneOf([true], mandatoryFieldMessage),
+    terms_agree: Yup.boolean().required(mandatoryFieldMessage),
+    tax_number: Yup.string(),
   };
 
   return Yup.object().shape({

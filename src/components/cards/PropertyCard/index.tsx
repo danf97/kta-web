@@ -1,5 +1,6 @@
 "use client";
 
+import { PropertyQueryResult } from "@/sanity/queries/documents/property";
 import { PropertyCardType } from "@/sanity/queries/objects/propertyCardObject";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,8 +10,8 @@ const PropertyCard = ({
   property,
   width = "card",
 }: {
-  property: PropertyCardType;
-  width?: "full" | "card";
+  property: PropertyCardType | PropertyQueryResult;
+  width?: "full" | "card" | "horizontal";
 }) => {
   const {
     title,
@@ -67,21 +68,33 @@ const PropertyCard = ({
     return <div>Missing image</div>; // Handle case where mainImage is not available
   }
 
+  const Component = width === "horizontal" ? "div" : Link;
+
   return (
-    <Link
+    <Component
       href={`/properties/${slug.current}`}
-      className={`flex bg-sand-light border border-black rounded-3xl overflow-hidden hover:bg-sand-dark
-        ${width === "full" ? "w-full" : "w-[298px]"}
+      className={`flex bg-sand-light border border-black rounded-3xl overflow-hidden text-left
+        ${width === "full" || width === "horizontal" ? "w-full" : "w-[298px]"}
+        ${width === "horizontal" ? "" : "hover:bg-sand-dark"}
       `}
       target="_blank"
     >
-      <div className="flex flex-col w-full">
+      <div
+        className={`flex w-full ${width === "horizontal" ? "flex-col tablet:flex-row" : "flex-col"}`}
+      >
         <Image
           src={mainImage.url}
           alt={title}
           width={310}
           height={208}
-          className="rounded-b-3xl object-cover border-b border-black w-full"
+          className={`
+            object-cover border-black 
+            ${
+              width === "horizontal"
+                ? "border-b rounded-b-3xl w-full tablet:w-auto tablet:border-b-0 tablet:h-full tablet:border-r tablet:rounded-r-3xl"
+                : "border-b rounded-b-3xl w-full"
+            }
+          `}
         />
 
         <div className="p-5 gap-6 flex flex-col flex-1">
@@ -97,28 +110,32 @@ const PropertyCard = ({
             </p>
             <ul className="body-xs flex flex-wrap" ref={bulletsRef}>
               {mainFacilities?.slice(0, 6).map((facility, index) => (
-                <li key={index} className="inline-block pb-1">
+                <li key={index} className="inline-block pb-1 group">
                   {facility.featureType}
                   {index === mainFacilities.length - 1 ? (
                     ""
                   ) : (
-                    <span className="px-1">&#x2022;</span>
+                    <span className="px-1 group-[:last-of-type]:hidden">
+                      &#x2022;
+                    </span>
                   )}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="mt-auto">
-            <p className="card-caps pb-2">Starting from</p>
-            <p className="body-l">
-              {fromPriceMoney}
-              <span className="body-xs">/night</span>
-            </p>
-          </div>
+          {width !== "horizontal" && (
+            <div className="mt-auto">
+              <p className="card-caps pb-2">Starting from</p>
+              <p className="body-l">
+                {fromPriceMoney}
+                <span className="body-xs">/night</span>
+              </p>
+            </div>
+          )}
         </div>
       </div>
-    </Link>
+    </Component>
   );
 };
 

@@ -196,6 +196,121 @@ const categories = {
   },
 };
 
+const bookPage = {
+  booking_request: {
+    en: "Booking request",
+    pt: "Pedido de reserva",
+  },
+  summary: {
+    en: "Summary",
+    pt: "Resumo",
+  },
+  total_of_nights: {
+    en: "Total of nights",
+    pt: "Total de noites",
+  },
+  nights: {
+    en: "nights",
+    pt: "noites",
+  },
+  total_of_guests: {
+    en: "Total of guests",
+    pt: "Total de hóspedes",
+  },
+  adults: {
+    en: "adults",
+    pt: "adultos",
+  },
+  children: {
+    en: "children",
+    pt: "crianças",
+  },
+  babies: {
+    en: "babies",
+    pt: "bebês",
+  },
+  detaild_price: {
+    en: "Detaild Price",
+    pt: "Preço detalhado",
+  },
+  bed_sheets_towels: {
+    en: "Bed sheets and towels",
+    pt: "Lençóis e toalhas",
+  },
+  included: {
+    en: "Included",
+    pt: "Incluído",
+  },
+  deposit: {
+    en: "Security deposit",
+    pt: "Caução",
+  },
+  payment_terms: {
+    en: "Payment terms",
+    pt: "Condições de pagamento",
+  },
+  first_payment: {
+    en: "First payment",
+    pt: "Primeiro pagamento",
+  },
+  first_payment_text: {
+    en: "To confirm your reservation you will have to make a payment corresponding to 30% of the reservation value.",
+    pt: "Para confirmar a sua reserva terá que realizar um pagamento coorespondente a 30% do valor da reserva.",
+  },
+  second_payment: {
+    en: "Second payment",
+    pt: "Segundo pagamento",
+  },
+  second_payment_text: {
+    en: "You will have to pay the remaining amount until the day of check-in.",
+    pt: "Terá que pagar o restante do valor até ao dia do check-in.",
+  },
+  of_deposit: {
+    en: "of security deposit",
+    pt: "de caução",
+  },
+  personal_details: {
+    en: "Personal details",
+    pt: "Dados pessoais",
+  },
+  agree_terms_message: {
+    pt: "Você precisa concordar com os termos e condições e a política de privacidade.",
+    en: "You need to agree to the terms and conditions and privacy policy.",
+  },
+  first_name: {
+    pt: "Primeiro nome",
+    en: "First name",
+  },
+  last_name: {
+    pt: "Último nome",
+    en: "First name",
+  },
+  phone_number: {
+    pt: "Número de telefone",
+    en: "Phone number",
+  },
+  country: {
+    pt: "País",
+    en: "Country",
+  },
+  tax_number: {
+    pt: "Número fiscal",
+    en: "TAX Number",
+  },
+  book_message: {
+    en: "Live us a message (Optional)",
+    pt: "Deixe-nos uma mensagem (Opcional)",
+  },
+  mandatory_fields: {
+    en: "* Required fields.",
+    pt: "* Campos obrigatórios.",
+  },
+  request_booking: {
+    en: "Request booking",
+    pt: "Solicitar reserva",
+  },
+};
+
 const mainStrings = {
   // Property
   Overview: {
@@ -353,6 +468,11 @@ const mainStrings = {
     en: "If you have any questions about the property, feel free to reach out to us.",
     pt: "Se tiver alguma dúvida sobre a propriedade, não hesite em contactar-nos.",
   },
+  back: {
+    en: "Back",
+    pt: "Voltar",
+  },
+  ...bookPage,
 } as const;
 
 type MainStringsType = typeof mainStrings;

@@ -1,10 +1,14 @@
 
 .kta-datepicker {
-  .react-datepicker-wrapper,
-  .react-datepicker__input-container,
-  .react-datepicker-ignore-onclickoutside, 
-  input {
-    width: 100%;
-    cursor: pointer;
+
+  .react-datepicker__input-container {
+    position: relative;
+    width: fit-content;
+  }
+
+  // Remove default blue background on selected day
+  .react-datepicker__day--keyboard-selected, 
+  .react-datepicker__day--keyboard-selected:not([aria-disabled="true"]):hover {
+    background-color: white;
   }
 }
