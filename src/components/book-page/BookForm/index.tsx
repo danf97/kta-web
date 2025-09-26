@@ -1,16 +1,57 @@
+import { createBookRequest } from "@/actions/createBookRequest";
 import { stringsData } from "@/components/forms/GetInTouchForm/data";
 import { Button } from "@/components/ui/Button";
 import { CheckBoxField } from "@/components/ui/CheckBoxField";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
+import { bookRequestTemplate } from "@/email_templates/bookRequest";
 import { countries } from "@/libs/countries";
 import { mainStringsResolver } from "@/libs/mainStrings";
 import { formFieldsValidationSchema } from "@/utils/formFieldsValidationSchema";
 import { useYupValidationResolver } from "@/utils/useYupValidationResolver";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import { FieldValues, useForm } from "react-hook-form";
 
-const BookForm = ({ lang }: { lang: "pt" | "en" }) => {
+export type BookFormFieldsType = {
+  submitDate: string;
+  checkIn: string;
+  checkOut: string;
+  totalNights: string;
+  totalPrice: string;
+  totalGuests: string;
+  depositPrice: string;
+  full_name: string;
+  email: string;
+  phone: string;
+  country: string;
+  tax_number: string;
+  book_message: string;
+  propertyName: string;
+  propertyNameURL: string;
+  langString: string;
+};
+
+const BookForm = ({
+  lang,
+  checkInData,
+  checkOutData,
+  totalNights,
+  bookingPriceMoney,
+  valorCaucaoMoney,
+  peopleString,
+  propertyName,
+}: {
+  lang: "pt" | "en";
+  checkInData: Date | null;
+  checkOutData: Date | null;
+  totalNights: number | null;
+  bookingPriceMoney: string | null;
+  valorCaucaoMoney: string | null;
+  peopleString: string | null;
+  propertyName: string | null;
+}) => {
+  const recaptcha = useRef<ReCAPTCHA>(null);
   const {
     register,
     handleSubmit,
@@ -23,7 +64,7 @@ const BookForm = ({ lang }: { lang: "pt" | "en" }) => {
       terms_agree: false,
       phone: "",
       tax_number: "",
-      message: "",
+      book_message: "",
     },
     resolver: useYupValidationResolver(
       formFieldsValidationSchema({
@@ -34,7 +75,7 @@ const BookForm = ({ lang }: { lang: "pt" | "en" }) => {
           "phone",
           "tax_number",
           "terms_agree",
-          "message",
+          "book_message",
         ],
         lang,
       })
@@ -42,6 +83,7 @@ const BookForm = ({ lang }: { lang: "pt" | "en" }) => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
   const [termsAgree, setTermsAgree] = useState(false);
   const [country, setCountry] = useState("PT");
   const [apiErrors, setApiErrors] = useState<{ message: string }[]>([]);
@@ -52,6 +94,20 @@ const BookForm = ({ lang }: { lang: "pt" | "en" }) => {
 
     setIsLoading(true);
 
+    if (!recaptcha.current || !recaptcha.current?.getValue()) {
+      setIsLoading(false);
+      setApiErrors([
+        {
+          message:
+            lang === "pt"
+              ? "Por favor, complete o captcha."
+              : "Please complete the captcha.",
+        },
+      ]);
+      return null;
+    }
+    const recaptchaToken = recaptcha.current?.getValue();
+
     if (!termsAgree) {
       setIsLoading(false);
       setApiErrors([
@@ -61,64 +117,71 @@ const BookForm = ({ lang }: { lang: "pt" | "en" }) => {
       ]);
     }
 
-    return null;
+    const templateData = {
+      submitDate: new Date().toISOString(),
+      checkIn: checkInData ? checkInData.toISOString().split("T")[0] : "",
+      checkOut: checkOutData ? checkOutData.toISOString().split("T")[0] : "",
+      totalPrice: bookingPriceMoney || "",
+      totalGuests: peopleString || "",
+      depositPrice: valorCaucaoMoney || "",
+      full_name: `${fields.first_name} ${fields.last_name}`,
+      email: fields.email,
+      phone: fields.phone,
+      tax_number: fields.tax_number,
+      book_message: fields.book_message,
+      country: country,
+      propertyName: propertyName || "",
+      totalNights: totalNights ? totalNights.toString() : "",
+      propertyNameURL: window.location.href,
+      langString: lang === "pt" ? "Portugês" : "English",
+    };
 
-    // const template = contactRequestTemplate({
-    //   first_last_name: fields.first_last_name,
-    //   email: fields.email,
-    //   phone: fields.phone,
-    //   message: fields.message,
-    // });
+    console.log("templateData", templateData);
+    const template = bookRequestTemplate(templateData);
 
-    // const state = "ok";
-    // const emailBody = template;
-    // const emailData = {
-    //   language: lang,
-    //   guestFullName: fields.first_last_name,
-    //   email: fields.email,
-    //   phone: fields.phone,
-    //   message: fields.message,
-    // };
-    // const resendResponse = {
-    //   status: "Unknown",
-    //   message: "null",
-    // };
+    const state = "ok";
+    const emailBody = template;
+    const emailData = {
+      language: lang,
+      guestFullName: `${fields.first_name} ${fields.last_name}`,
+      email: fields.email,
+      phone: fields.phone,
+      message: fields.message,
+    };
+    const resendResponse = {
+      status: "Unknown",
+      message: "null",
+    };
 
-    // console.log("Submitting contact request:", {
-    //   state,
-    //   emailBody,
-    //   emailData,
-    //   resendResponse,
-    // });
+    try {
+      const createBookingRequestServer = createBookRequest.bind(
+        null,
+        JSON.stringify({
+          state,
+          emailBody,
+          emailData,
+          resendResponse,
+          recaptchaToken,
+        })
+      );
 
-    // try {
-    //   const createBookingRequestServer = createContactRequest.bind(
-    //     null,
-    //     JSON.stringify({
-    //       state,
-    //       emailBody,
-    //       emailData,
-    //       resendResponse,
-    //     })
-    //   );
-
-    //   await createBookingRequestServer();
-    //   setSubmitSuccess(true);
-    //   setIsLoading(false);
-    // } catch (error) {
-    //   console.error("Error creating booking request:", error);
-    //   alert("Erro ao enviar o email. Por favor, tente novamente.");
-    //   setIsLoading(false);
-    // }
+      await createBookingRequestServer();
+      setSubmitSuccess(true);
+      setIsLoading(false);
+    } catch (error) {
+      console.error("Error creating booking request:", error);
+      alert("Erro ao enviar o email. Por favor, tente novamente.");
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div>
+    <div className="relative">
       <form
-        className="flex flex-wrap gap-4"
+        className={`flex flex-wrap gap-4 ${submitSuccess ? "invisible opacity-0" : "visible opacity-100"}`}
         onSubmit={handleSubmit((data) => submitHandler(data))}
       >
-        <div className="grid grid-cols-2 gap-4 w-full">
+        <div className="grid tablet:grid-cols-2 gap-4 w-full">
           <div>
             <Input
               label={`${mainStringsResolver("first_name", lang)}*`}
@@ -140,7 +203,7 @@ const BookForm = ({ lang }: { lang: "pt" | "en" }) => {
             />
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4 w-full">
+        <div className="grid tablet:grid-cols-2 gap-4 w-full">
           <div>
             <Input
               label="Email*"
@@ -163,7 +226,7 @@ const BookForm = ({ lang }: { lang: "pt" | "en" }) => {
             />
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4 w-full">
+        <div className="grid tablet:grid-cols-2 gap-4 w-full">
           <div>
             <Select
               label={`${mainStringsResolver("country", lang)}*`}
@@ -186,16 +249,20 @@ const BookForm = ({ lang }: { lang: "pt" | "en" }) => {
         <div className="w-full">
           <Input
             label={`${mainStringsResolver("book_message", lang)}`}
-            name="message"
+            name="book_message"
             asTextArea
             register={{
-              ...register("message"),
+              ...register("book_message"),
             }}
-            error={errors.message?.message as string}
+            error={errors.book_message?.message as string}
           />
         </div>
 
         <div>
+          <ReCAPTCHA
+            sitekey={process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY!}
+            ref={recaptcha}
+          />
           <p className="body-xs mb-4">
             {mainStringsResolver("mandatory_fields", lang)}
           </p>
@@ -238,6 +305,18 @@ const BookForm = ({ lang }: { lang: "pt" | "en" }) => {
           />
         </div>
       </form>
+
+      <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 px-2">
+        {submitSuccess && (
+          <>
+            <div className="p-4 bg-green-100 border border-green-300 text-green-800 rounded">
+              {lang === "en"
+                ? "Thank you for reaching out! We'll get back to you as soon as possible — usually within 24 hours."
+                : "Obrigado pelo seu contacto! Responderemos o mais breve possível — normalmente dentro de 24 horas."}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };

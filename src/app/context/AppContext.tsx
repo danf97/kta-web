@@ -62,8 +62,11 @@ export const AppProvider = ({ children, locale }: AppProviderProps) => {
   const handleLocale = (newLocale: string) => {
     setCookie("locale", newLocale);
     const newPath = pathname.replace(locale, newLocale);
-
-    router.push(newPath);
+    const searhTerms = window.location.search;
+    console.log("searhTerms", searhTerms);
+    const newUrl = searhTerms ? newPath + searhTerms : newPath;
+    console.log("newUrl", newUrl);
+    router.push(newUrl);
   };
 
   /*

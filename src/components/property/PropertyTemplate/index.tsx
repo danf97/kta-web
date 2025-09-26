@@ -15,8 +15,15 @@ import PropertyImportantDetails from "../PropertyImportantDetails";
 import { Button } from "@/components/ui/Button";
 import { mainStringsResolver } from "@/libs/mainStrings";
 import PropertyBooking from "../PropertyBooking";
+import { RateOutput } from "@/utils/expandRates";
 
-const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
+const PropertyTemplate = ({
+  property,
+  priceRate,
+}: {
+  property: PropertyQueryResult;
+  priceRate: RateOutput[];
+}) => {
   console.log({ property });
   const {
     // Meta
@@ -60,7 +67,6 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
     checkInOrangeTime,
     checkInRedTime,
     checkOutTime,
-    pricingTable,
   } = property;
 
   const rules = {
@@ -147,7 +153,7 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
     <div className="bg-sand z-[1] relative">
       <div
         id="start"
-        className="relative h-[calc(100vh-76px)] border-b border-black overflow-hidden w-full"
+        className="relative h-screen border-b border-black overflow-hidden w-full"
       >
         <div className="absolute top-0 left-0 leading-0 w-[calc(100vw+4px)] h-full pointer-events-none z-[-1]">
           {mainImage?.url ? (
@@ -293,8 +299,9 @@ const PropertyTemplate = ({ property }: { property: PropertyQueryResult }) => {
           <div>
             <PropertyBooking
               slug={slug}
-              pricingTable={pricingTable}
+              priceRate={priceRate}
               maxGuests={maxGuests}
+              lang={lang}
             />
           </div>
 

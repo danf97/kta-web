@@ -4,10 +4,12 @@ import { InformationCircleIcon } from "@heroicons/react/24/outline";
 const BookPayment = ({
   totalPrice,
   depositValue,
+  setShowDepositModal,
   lang,
 }: {
   totalPrice: number | null;
   depositValue?: number;
+  setShowDepositModal: (val: boolean) => void;
   lang: "en" | "pt";
 }) => {
   const firstPayment = totalPrice ? Math.ceil(totalPrice * 0.3) : 0;
@@ -72,7 +74,7 @@ const BookPayment = ({
         </div>
       </div> */}
 
-      <div className="relative grid grid-cols-2 gap-24 mt-10">
+      <div className="relative grid tablet:grid-cols-2 gap-9 tablet:gap-24 mt-10">
         <div>
           <div>
             <h3 className="body-16-bold mb-4">
@@ -81,7 +83,9 @@ const BookPayment = ({
 
             <p>{mainStringsResolver("first_payment_text", lang)}</p>
 
-            <p className="body-xl mt-5">{firstPaymentMoney}</p>
+            {firstPaymentMoney !== "--" && (
+              <p className="body-xl mt-5">{firstPaymentMoney}</p>
+            )}
           </div>
         </div>
         <div>
@@ -92,16 +96,23 @@ const BookPayment = ({
 
             <p>{mainStringsResolver("second_payment_text", lang)}</p>
 
-            <p className="body-xl flex items-center gap-2 mt-5 flex-wrap">
-              {secondPaymentMoney}
+            {secondPaymentMoney !== "--" && (
+              <p className="body-xl flex items-center gap-2 mt-5 flex-wrap">
+                {secondPaymentMoney}
 
-              <span className="body-16">
-                {depositValueMoney
-                  ? ` + ${depositValueMoney} ${mainStringsResolver("of_deposit", lang)}`
-                  : ""}
-                <InformationCircleIcon className="w-5 inline-block ml-1" />
-              </span>
-            </p>
+                <span
+                  className="body-16 cursor-pointer"
+                  onClick={() => {
+                    setShowDepositModal(true);
+                  }}
+                >
+                  {depositValueMoney
+                    ? ` + ${depositValueMoney} ${mainStringsResolver("of_deposit", lang)}`
+                    : ""}
+                  <InformationCircleIcon className="w-5 inline-block ml-1" />
+                </span>
+              </p>
+            )}
           </div>
         </div>
       </div>

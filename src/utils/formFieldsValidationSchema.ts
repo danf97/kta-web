@@ -11,7 +11,8 @@ type fieldsTypes =
   | "loginPassword"
   | "phone"
   | "terms_agree"
-  | "tax_number";
+  | "tax_number"
+  | "book_message";
 
 export const formFieldsValidationSchema = ({
   fields,
@@ -52,6 +53,7 @@ export const formFieldsValidationSchema = ({
     first_name: Yup.string().required(mandatoryFieldMessage),
     last_name: Yup.string().required(mandatoryFieldMessage),
     message: Yup.string().required(mandatoryFieldMessage),
+    book_message: Yup.string(),
     first_last_name: Yup.string().required(mandatoryFieldMessage),
     email: Yup.string()
       .required(mandatoryFieldMessage)
@@ -63,7 +65,7 @@ export const formFieldsValidationSchema = ({
       .required(mandatoryFieldMessage)
       .oneOf([Yup.ref("password")], passwordMismatchMessage),
     loginPassword: Yup.string().required(mandatoryFieldMessage),
-    phone: Yup.string().matches(phoneRegExp, phoneInvalidMessage),
+    phone: Yup.string(),
     terms_agree: Yup.boolean().required(mandatoryFieldMessage),
     tax_number: Yup.string(),
   };

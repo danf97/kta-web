@@ -1,5 +1,6 @@
 import PropertyTemplate from "@/components/property/PropertyTemplate";
 import { getSanityProperty } from "@/sanity/services/getSanityProperty";
+import { expandRates } from "@/utils/expandRates";
 
 export default async function Property({
   params,
@@ -8,6 +9,7 @@ export default async function Property({
 }) {
   const { locale, slug } = await params;
   const property = await getSanityProperty({ slug, lang: locale });
+  const priceRate = expandRates(property.pricingTable);
 
-  return <PropertyTemplate property={property} />;
+  return <PropertyTemplate property={property} priceRate={priceRate} />;
 }

@@ -309,6 +309,10 @@ const bookPage = {
     en: "Request booking",
     pt: "Solicitar reserva",
   },
+  pending_estimate: {
+    en: "Pending estimate",
+    pt: "Estimativa pendente",
+  },
 };
 
 const mainStrings = {

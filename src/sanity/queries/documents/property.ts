@@ -102,7 +102,7 @@ export type RulesType = {
 export type PropertyQueryResult = {
   meta: {
     slug: string;
-    lang: string;
+    lang: "pt" | "en";
   };
   _key: string;
   _id: string;
@@ -152,13 +152,13 @@ export type PropertyQueryResult = {
       sunday?: boolean;
     };
     checkOutDays?: {
-      Monday?: boolean;
-      Tuesday?: boolean;
-      Wednesday?: boolean;
-      Thursday?: boolean;
-      Friday?: boolean;
-      Saturday?: boolean;
-      Sunday?: boolean;
+      monday?: boolean;
+      tuesday?: boolean;
+      wednesday?: boolean;
+      thursday?: boolean;
+      friday?: boolean;
+      saturday?: boolean;
+      sunday?: boolean;
     };
   }[];
 

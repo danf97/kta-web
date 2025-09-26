@@ -1,5 +1,6 @@
 import BookPage from "@/components/book-page/BookPage";
 import { getSanityProperty } from "@/sanity/services/getSanityProperty";
+import { expandRates } from "@/utils/expandRates";
 
 export default async function Property({
   params,
@@ -8,6 +9,13 @@ export default async function Property({
 }) {
   const { locale, slug } = await params;
   const property = await getSanityProperty({ slug, lang: locale });
+  const priceRate = expandRates(property.pricingTable);
 
-  return <BookPage property={property} lang={locale as "pt" | "en"} />;
+  return (
+    <BookPage
+      property={property}
+      lang={locale as "pt" | "en"}
+      priceRate={priceRate}
+    />
+  );
 }

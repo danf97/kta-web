@@ -2,7 +2,7 @@
 
 import { Resend } from "resend";
 
-export async function createContactRequest(data: string) {
+export async function createBookRequest(data: string) {
   const { state, emailBody, emailData, resendResponse, recaptchaToken } =
     JSON.parse(data);
 
@@ -40,7 +40,7 @@ export async function createContactRequest(data: string) {
   try {
     // Send email
     const subject =
-      "Pedido de Contacto - Webiste Keys to Algarve" +
+      "Pedido de Reserva - Webiste Keys to Algarve" +
       // Date and time
       " - " +
       new Date()

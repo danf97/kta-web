@@ -1,25 +1,31 @@
 "use client";
 
 import { Button } from "@/components/ui/Button";
-import { use, useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
+import { useEffect, useState } from "react";
+import DatePicker, { registerLocale } from "react-datepicker";
 import { addDays, subDays } from "date-fns";
 import { PropertyQueryResult } from "@/sanity/queries/documents/property";
 import { getBookingPrice } from "@/utils/getBookingPrice";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
+import { mainStringsResolver } from "@/libs/mainStrings";
+import { RateOutput } from "@/utils/expandRates";
+import { pt } from "date-fns/locale/pt";
+registerLocale("pt", pt);
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./styles.scss";
 
 const PropertyBooking = ({
   slug,
-  pricingTable,
+  priceRate,
   maxGuests,
+  lang,
 }: {
   slug: string;
-  pricingTable: PropertyQueryResult["pricingTable"];
+  priceRate: RateOutput[];
   maxGuests: number;
+  lang: "pt" | "en";
 }) => {
   const router = useRouter();
   const [checkInData, setCheckInData] = useState<Date | null>(null);
@@ -28,6 +34,7 @@ const PropertyBooking = ({
   const [bookingPrice, setBookingPrice] = useState<number | null>(null);
   const [bookingError, setBookingError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isValid, setIsValid] = useState(false);
 
   const bookingPriceMoney = bookingPrice
     ? `${bookingPrice.toLocaleString("pt-PT", {
@@ -65,9 +72,18 @@ const PropertyBooking = ({
     setTotalNights(diffDays);
 
     // Calculate booking price
-    const totalPrice = getBookingPrice(checkInData, checkOutData, pricingTable);
-    setBookingPrice(totalPrice?.error ? null : (totalPrice.totalPrice ?? null));
-    setBookingError(totalPrice?.error ?? null);
+    const totalPrice = getBookingPrice(
+      checkInData,
+      checkOutData,
+      priceRate,
+      lang
+    );
+    console.log("totalPrice", totalPrice);
+    setBookingPrice(
+      totalPrice?.reason ? null : (totalPrice.totalPrice ?? null)
+    );
+    setBookingError(totalPrice?.reason ?? null);
+    setIsValid(totalPrice.valid);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkInData, checkOutData]);
@@ -109,10 +125,14 @@ const PropertyBooking = ({
       <div className="mb-5">
         {bookingPrice ? (
           <>
-            <span className="body-l">{pricePerNightMoney}</span>/night
+            <span className="body-l">{pricePerNightMoney}</span>/{" "}
+            {lang === "en" ? "night" : "noite"}
           </>
         ) : (
-          <span className="body-l">Get an estimate</span>
+          <span className="body-l">
+            {" "}
+            {lang === "en" ? "Get an estimate" : "Obter uma estimativa"}
+          </span>
         )}
       </div>
 
@@ -120,9 +140,14 @@ const PropertyBooking = ({
         <div className="flex flex-col bg-gray-100 rounded-2xl p-3 flex-1">
           <div className="body-xxs-bold uppercase mb-2">Check-in</div>
           <div className="body-16 bold text-black">
-            {!checkInData && <span className="absolute ">Pick a date</span>}
+            {!checkInData && (
+              <span className="absolute ">
+                {lang === "en" ? "Pick a date" : "Escolher data"}
+              </span>
+            )}
             <div className="kta-datepicker">
               <DatePicker
+                locale={lang}
                 name="check-in"
                 dateFormat="dd/MM/yyyy"
                 selected={checkInData}
@@ -141,9 +166,14 @@ const PropertyBooking = ({
         <div className="bg-gray-100 rounded-2xl p-3 flex-1">
           <div className="body-xxs-bold uppercase mb-2">Check-out</div>
           <div className="body-16 bold text-black">
-            {!checkOutData && <span className="absolute ">Pick a date</span>}
+            {!checkOutData && (
+              <span className="absolute ">
+                {lang === "en" ? "Pick a date" : "Escolher data"}
+              </span>
+            )}
             <div className="kta-datepicker">
               <DatePicker
+                locale={lang}
                 name="check-out"
                 dateFormat="dd/MM/yyyy"
                 selected={checkOutData}
@@ -176,8 +206,9 @@ const PropertyBooking = ({
         >
           <div className="body-xxs-bold uppercase mb-2">Total of guests</div>
           <div className="body-16 bold">
-            {totalAdults} Adults + {totalChildren} Children + {totalBabies}{" "}
-            Babies
+            {totalAdults} {mainStringsResolver("adults", lang)} +{" "}
+            {totalChildren} {mainStringsResolver("children", lang)} +{" "}
+            {totalBabies} {mainStringsResolver("babies", lang)}
           </div>
         </button>
 
@@ -190,7 +221,7 @@ const PropertyBooking = ({
           <span className="block border-gray-300 border-b" />
 
           <div className="flex flex-row justify-between items-center mb-3 mt-3">
-            <div>Adults</div>
+            <div>{mainStringsResolver("adults", lang)}</div>
             <div className="flex">
               <Button
                 type="secondary"
@@ -217,7 +248,7 @@ const PropertyBooking = ({
           </div>
 
           <div className="flex flex-row justify-between items-center mb-3 mt-3">
-            <div>Children</div>
+            <div>{mainStringsResolver("children", lang)}</div>
             <div className="flex">
               <Button
                 type="secondary"
@@ -244,7 +275,7 @@ const PropertyBooking = ({
           </div>
 
           <div className="flex flex-row justify-between items-center mb-3 mt-3">
-            <div>Babies</div>
+            <div>{mainStringsResolver("babies", lang)}</div>
             <div className="flex">
               <Button
                 type="secondary"
@@ -278,23 +309,26 @@ const PropertyBooking = ({
       </div>
 
       <div className={`my-8 ${!bookingPrice ? "hidden" : "block"}`}>
-        <div className="body-xxs-bold uppercase mb-4">Detaild Price</div>
+        <div className="body-xxs-bold uppercase mb-4">
+          {mainStringsResolver("detaild_price", lang)}
+        </div>
 
         <ul className="body-16 mt-2">
           <li className="flex flex-row justify-between gap-2 mb-2">
-            <span>Bed sheets and towels</span>
-            <span>Included</span>
+            <span>{mainStringsResolver("bed_sheets_towels", lang)}</span>
+            <span>{mainStringsResolver("included", lang)}</span>
           </li>
           <li className="flex flex-row justify-between gap-2 mb-2">
             <span>
-              {pricePerNightMoney} x {totalNights} nights
+              {pricePerNightMoney} x {totalNights}{" "}
+              {mainStringsResolver("nights", lang)}
             </span>
             <span>{bookingPriceMoney}</span>
           </li>
-          <li className="flex flex-row justify-between gap-2 mb-2">
+          {/* <li className="flex flex-row justify-between gap-2 mb-2">
             <span>Turistic fee</span>
             <span>200€</span>
-          </li>
+          </li> */}
           <li className="flex flex-row justify-between gap-2 mt-4 body-16-bold">
             <span>Total</span>
             <span>{bookingPriceMoney}</span>
@@ -302,7 +336,7 @@ const PropertyBooking = ({
         </ul>
       </div>
 
-      {checkInData && checkOutData && (
+      {checkInData && checkOutData && isValid && (
         <>
           <div className="z-[1] mt-6">
             <Button

@@ -4,11 +4,12 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { formFieldsValidationSchema } from "@/utils/formFieldsValidationSchema";
 import { useYupValidationResolver } from "@/utils/useYupValidationResolver";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { stringsData } from "./data";
 import { contactRequestTemplate } from "@/email_templates/contactRequest";
 import { createContactRequest } from "@/actions/createContactRequest";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export type GetInTouchFormFieldsType = {
   first_last_name: string;
@@ -19,6 +20,7 @@ export type GetInTouchFormFieldsType = {
 };
 
 const GetInTouchForm = ({ lang }: { lang: "en" | "pt" }) => {
+  const recaptcha = useRef<ReCAPTCHA>(null);
   const {
     register,
     handleSubmit,
@@ -45,12 +47,26 @@ const GetInTouchForm = ({ lang }: { lang: "en" | "pt" }) => {
   const message = watch("message");
   // const terms_agree = watch("terms_agree");
 
+  console.log("apiErrors", apiErrors);
+
   const submitHandler = async (fields: FieldValues) => {
     if (isLoading) return;
 
     setIsLoading(true);
 
-    console.log("Form fields:", fields);
+    if (!recaptcha.current || !recaptcha.current?.getValue()) {
+      setIsLoading(false);
+      setApiErrors([
+        {
+          message:
+            lang === "pt"
+              ? "Por favor, complete o captcha."
+              : "Please complete the captcha.",
+        },
+      ]);
+      return null;
+    }
+    const recaptchaToken = recaptcha.current?.getValue();
 
     const template = contactRequestTemplate({
       first_last_name: fields.first_last_name,
@@ -78,6 +94,7 @@ const GetInTouchForm = ({ lang }: { lang: "en" | "pt" }) => {
       emailBody,
       emailData,
       resendResponse,
+      recaptchaToken,
     });
 
     try {
@@ -88,6 +105,7 @@ const GetInTouchForm = ({ lang }: { lang: "en" | "pt" }) => {
           emailBody,
           emailData,
           resendResponse,
+          recaptchaToken,
         })
       );
 
@@ -101,9 +119,9 @@ const GetInTouchForm = ({ lang }: { lang: "en" | "pt" }) => {
     }
   };
 
-  useEffect(() => {
-    setApiErrors([]);
-  }, [first_last_name, email, phone, message]);
+  // useEffect(() => {
+  //   setApiErrors([]);
+  // }, [first_last_name, email, phone, message]);
 
   return (
     <div className="relative">
@@ -181,12 +199,24 @@ const GetInTouchForm = ({ lang }: { lang: "en" | "pt" }) => {
           }}
           error={errors.terms_agree?.message as string}
         /> */}
+          <ReCAPTCHA
+            sitekey={process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY!}
+            ref={recaptcha}
+          />
 
           <span
             dangerouslySetInnerHTML={{
               __html: stringsData.terms_agree[lang],
             }}
           />
+
+          {apiErrors.length > 0 && (
+            <div className="p-4 bg-red-100 border border-red-300 text-red-800 rounded">
+              {apiErrors.map((err, index) => (
+                <p key={index}>{err.message}</p>
+              ))}
+            </div>
+          )}
 
           <Button
             label={stringsData.submit[lang]}
@@ -200,14 +230,6 @@ const GetInTouchForm = ({ lang }: { lang: "en" | "pt" }) => {
         {submitSuccess && (
           <div className="p-4 bg-green-100 border border-green-300 text-green-800 rounded">
             {stringsData.successMessage[lang]}
-          </div>
-        )}
-
-        {apiErrors.length > 0 && (
-          <div className="p-4 bg-red-100 border border-red-300 text-red-800 rounded">
-            {apiErrors.map((err, index) => (
-              <p key={index}>{err.message}</p>
-            ))}
           </div>
         )}
       </div>
