@@ -29,7 +29,6 @@ const BookPage = ({
 }) => {
   const { slug, valorCaucao, maxGuests, title } = property;
   const [showDepositModal, setShowDepositModal] = useState<boolean>(false);
-  console.log({ property });
   const router = useRouter();
   const propertyUrl = `/${lang}/properties/${slug.current}`;
 
@@ -133,6 +132,7 @@ const BookPage = ({
       ${totalChildren} ${mainStringsResolver("children", lang)} + 
       ${totalBabies} ${mainStringsResolver("babies", lang)}`
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [maxGuests, totalAdults, totalChildren, totalBabies]);
 
   const spaceStyles = `my-12`;

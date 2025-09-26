@@ -32,17 +32,17 @@ export const formFieldsValidationSchema = ({
     lang == "en"
       ? "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
       : "Deve conter 8 caracteres, uma maiúscula, uma minúscula, um número e um caractere especial";
-  const phoneInvalidMessage =
-    lang == "en"
-      ? "Please enter a valid phone number, starting with a '+' and followed by 10-15 digits. No spaces or special characters allowed."
-      : "Por favor insira um número de telefone válido, começando com '+' e seguido de 10-15 dígitos. Não são permitidos espaços ou caracteres especiais.";
+  // const phoneInvalidMessage =
+  //   lang == "en"
+  //     ? "Please enter a valid phone number, starting with a '+' and followed by 10-15 digits. No spaces or special characters allowed."
+  //     : "Por favor insira um número de telefone válido, começando com '+' e seguido de 10-15 dígitos. Não são permitidos espaços ou caracteres especiais.";
 
   // Regex
   // const passwordRegExp =
   //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
   const passwordRegExp =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*\?+\-=_\/])(?=.{8,})/;
-  const phoneRegExp = /^\+[1-9]\d{1,14}$|^$/;
+  // const phoneRegExp = /^\+[1-9]\d{1,14}$|^$/;
 
   // Fields
   const schemaFields: {

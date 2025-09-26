@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/Button";
 import { useEffect, useState } from "react";
 import DatePicker, { registerLocale } from "react-datepicker";
 import { addDays, subDays } from "date-fns";
-import { PropertyQueryResult } from "@/sanity/queries/documents/property";
 import { getBookingPrice } from "@/utils/getBookingPrice";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
